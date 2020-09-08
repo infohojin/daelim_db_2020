@@ -6,15 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-        echo"코드실행1. 대림대학교";
-    ?>
     
+    <?php
+        echo "코드실행1. 대림대학교";
+    ?>
+
     <hr>
 
     <?php
-        echo"코드실행2. 반갑습니다.";
+        echo "코드실행2. 반갑습니다.";
     ?>
 
 </body>
 </html>
+
+
+
+
+
+
