@@ -1,0 +1,21 @@
+1. 상수를 선언할때 반드시 써야하는가?
+x
+반드시는 아니지만 대체로 대문자를 씀
+
+2.
+<?php
+const PI = 3.14;
+const PI = 3.141592;
+
+이렇게 실행했을때 오류가 나는가? 난다면 그 이유는?
+답 : 난다. const는 하나의 변수이름으로 하나의 값만 가진다. 즉 덮어쓸 수 없음.
+
+3.
+코드를 작성하고 깃에 올릴 때 명령어를 순서대로 쓰시오
+a. git fetch src
+b. git commit -m "자기이름-메시지 작성"
+c. git merge src/master
+d. git add .
+e. git push -u origin master
+
+답 : a-c-b-d-e
