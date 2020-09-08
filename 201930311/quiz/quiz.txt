@@ -1,0 +1,11 @@
+1. 포크한 자신의 저장소 복제하는 명령어
+git clone https://github.com/자기아이디/daelim_2020-2.git
+
+2. 원본 저장소 가져와서 병합하기
+git fetch src
+git merge src/master
+
+3. 코드 작성 및 올리기
+git add .
+git commit -m "메시지 작성"
+git push -u origin master
