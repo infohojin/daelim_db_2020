@@ -1,14 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 <?php
-echo "안녕하세요"; //echo "반갑습니다";
 
-#이거도
+ echo "대림대학교";
 
-/**
- * 오
- * 늘어난당
- * 자바등 객체지향에서 씀
- */
+?>
 
- /*
- 이렇게 사이에는 가능
- */
+<hr>
+<?php
+
+print "201740238 학번 황지민 입니다.";
+
+?>
+
+</body>
+</html>
