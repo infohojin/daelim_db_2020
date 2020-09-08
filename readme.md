@@ -40,30 +40,31 @@ git push -u origin master
 * 풀리퀘스트 전송
 
 
-## 1. 본 저장소 포크
+## 2. 원본 저장소 연동
 
 포크한 자신 저장소를 복제
 
 git clone https://github.com/자기아이디/daelim_db_2020.git
 
-원본 저장소 등록
+## 3. 원본 저장소로 부터 자기 저장소 갱신
+
 ```
 git remote add src https://github.com/infohojin/daelim_db_2020.git
 ```
 
-## 2. 원본 저장소 가지고 와서 병합하기
+## 4. 원본 저장소 가지고 와서 병합하기
 
 ```
 git fetch src
 git merge src/master
 ```
 
-## 코드 작성 및 올리기
+## 5. 코드 작성 및 올리기
 ---
 
 ```
 git add .
-git commit -m "메시지 작성"
+git commit -m "자기이름-메시지 작성"
 git push -u origin master
 ```
 
