@@ -10,4 +10,4 @@
 
     }*/
 
-    echo PI;
+    print PI;
