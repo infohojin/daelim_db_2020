@@ -1,6 +1,6 @@
 8월 25일
 1. php에서 터미널에 출력하는 명령어는? 답 : 2번
-1) console.log  2) echo""  3) print()  4) println()
+1) console.log  2) echo""  3) push""  4) println()
 
 2. 다음 중 php 장점이 아닌 것은? 답 : 1번
 1) 윈도우나 리눅스 계열의 대부분의 운영체제에서 이용할 수 있다
