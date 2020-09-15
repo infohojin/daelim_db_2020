@@ -9,4 +9,5 @@
 
 
     $daelim = "name";
-    echo ${$daelim};
+    echo ${$daelim}; 
+    // $daelim 안에 있는 이름과 동일한 변수를 찾아서, 그 안에 있는 값을 출력.
