@@ -25,7 +25,7 @@ function main($filename, $body)
 }
 $body = main("../resource/main.html",$body);
 
-
+  
 
 echo $body;
 
