@@ -70,3 +70,22 @@
 2) var_dump는 정수를 출력하는 함수다.
 3) var_dump는 변수의 정보를 출력하는 함수다.
 4) var_dump는 실수를 출력하는 함수다.
+
+9월 22일
+1. php 산술 연산자주 옳지 않은 것은? 답 : 3번
+1) +
+2) /
+3) ^
+4) *
+
+2. 파일을 읽어서 내용을 결과값으로 반환하는 함수는? 답 : 1번
+1) file_get_contents
+2) file_put_contents
+3) file_push_contents
+4) file_sum_contents
+
+3. php에서 문자열을 더하는 연산자는? 답 : 2번
+1) &
+2) .
+3) #
+4) @
