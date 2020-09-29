@@ -11,3 +11,7 @@ echo $hi;
 
 $hi2 = "hello 'world'...";
 echo $hi2;
+
+
+$name = "안녕하세요 \"대림이\" 입니다.";
+echo $name;
