@@ -1,4 +1,6 @@
 <?php
+
+/*
 // 함수를 호출해서 사용할거야
 // 값을 전달해주면, 문자열 전달할거야 (파일주소)
 $filename = "../";  // 상위폴더 (학번)
@@ -18,3 +20,17 @@ $body = str_replace("{{header}}",$header,$body);
 $footer = file_get_contents("../resource/footer.html");
 $body = str_replace("<<푸터에요>>",$footer,$body);
 echo $body;
+*/
+
+
+
+// resource 파일로 점프
+// include "resource.php";
+require "resource.php";
+
+$layout = "layout03";
+$layout = html_get_resource($layout);
+$content = html_get_resource("layout02", "hello.html");
+
+$layout = str_replace("{{contents}}", $content, $layout);
+echo $layout;
