@@ -1,29 +1,22 @@
 <?php
-#echo "여기가 시작이야아아아아";
-$filename = "../";
-$filename .= "resource/layout.html";
 
-#echo $filename;
+include "resource.php";
+include "resource.php";
 
-$body = file_get_contents($filename);
+$theme = "layout04";
+//$body = html_get_contents($theme);
 
-$header = file_get_contents("../resource/header.html");
+$color1="#0277bd";
+$color2="#512da8";
 
-$body = str_replace("{{header}}",$header,$body);
+$vars = ['header_color'=>$color2];
 
-$footer = file_get_contents("../resource/footer.html");
-$body = str_replace("{{footer}}",$footer,$body);
+$filename = "../resource/layout02/layout.html";
+$body =resource($filename,$vars);
 
+$content = html_get_contents($theme,"hello.html");
 
-function main($filename, $body)
-{
-    $footer = file_get_contents($filename);
-    $body = str_replace("{{main}}",$footer,$body);
-
-    return $body;
-}
-
-$body = main("../resource/main.html",$body);
+$body = str_replace("{{contents}}", $content, $body);
 
 
 echo $body;
