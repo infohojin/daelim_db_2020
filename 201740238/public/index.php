@@ -1,31 +1,16 @@
 <?php
-$filename = "../";//상위폴더
-$filename .= "resource/layout.html";
 
-//함수
+include "resource.php";
+include "resource.php";
 
-$body = file_get_contents($filename);
+$theme = "layout04";
+$color1 = "#673ab7";
+$color2 = " #5e35b1";
+$vars = ['header_color' => $color2];
+$filename = "../resource/layout02/layout.html";
+$body = resource($filename,$vars);
 
-$header = file_get_contents("../resource/header.html");
+$content = html_get_contents($theme, "hello.html");
 
-$body = str_replace("{{header}}",$header,$body);
-
-
-
-$footer = file_get_contents("../resource/footer.html");
-
-$body = str_replace("{{footer}}",$footer,$body);
-
-function main($filename, $body) 
-{
-
-//코드를 함수로 만들거에요
-$footer = file_get_contents($filename);
-$body = str_replace("{{main}}",$footer,$body);
-
-return $body;
-}
-
-$body = main("../resource/main.html",$body);
+$body = str_replace("{{contents}}",$content, $body);
 echo $body;
-
