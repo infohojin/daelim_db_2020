@@ -1,18 +1,28 @@
 <?php
 
-    //함수 호출해서 사용
-    //값을 전달해주면, 문자열을 전달. 파일주소.
-    $filename = "../";
-    // . 문자열을 더하는 연산자
-    // = 대입
-    $filename .= "resource/layout.html";
-    $body = file_get_contents($filename);
-    $header = file_get_contents("../resource/header.html");
-    $footer = file_get_contents("../resource/footer.html");
+    echo "여기가 시작";
 
-    // body에 str_replace의 값을 대입
-    // 치환
-    $body = str_replace("{{header}}", $header, $body);
-    $body = str_replace("{footer}", $footer, $body);
+    // resource 파일로 점프
+    // _once : 동일한 파일이 include 되었을 때, 한번만 동장.
 
-    echo $body;
+    // include vs require
+    // 1. include : 파일이 존재하지 않아도, 경고 띄우고 계속 실행.
+    // 2. require : 파일이 없으면 프로그램 중단.
+
+    // include_once "resource.php";
+    // include_once "resource.php";
+
+    require_once "resource.php";
+    // require_once "resource.php";
+
+
+
+
+    // 되돌아와서 프로그램 계속 실행
+    $layout = "layout03";
+    $layout = html_get_resource("layout03");
+    $content = html_get_resource("layout02", "hello.html");
+
+    $layout = str_replace("{(contents)}", $content, $layout);
+    echo $layout;
+?>
