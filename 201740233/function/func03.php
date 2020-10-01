@@ -20,5 +20,3 @@ if (function_exists("hello")) {
 } else {
     echo "hello 함수가 없습니다.";
 }
-
-
