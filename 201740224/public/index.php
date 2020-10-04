@@ -1,22 +1,24 @@
 <?php
-//함수를 호출해서 사용 함
-//값을 전달해주면, 문자열 전달 할꺼야, 파일 주소
-$filename = "../";//상위폴더 (학번)
-$filename .="resource/layout.html";//복합 연산자
-// . 문자열을 더하는 연산자
-// = 대입
+//시작이 여기
+//echo"여기가 시작";
 
-##echo $filename;
-//file_get_contents 함수는
-//파일을 읽어서 내용을 결과값으로 변환
-$body = file_get_contents($filename);
-$header = file_get_contents("../resource/header.html");
+//resouce파일로 점프
+//11장 설명...
+//include 사용한 만큼 파일을 결합하여 실행
+//_once > 동일한 파일이 include 되었을때, 한번만 동작
+#include_once "resource.php";//함수 한번 선언
+#include_once "resource.php";//함수 중복 선언
 
+// include vs require
+//include 는 파일이 존재하지 않아요, 경고....계속 실행
+//require 는 만일 파일이 없으면,프로그램은 중단(stop)
 
-//body에 str_replace함수의 결과값을 대입
-$body = str_replace("{{header}}",$header,$body);
+require_once "resource.php";
+//require_once "resource.php";
+//되돌아와서 프로그램 계속 실행
+$theme = "layout03";
+$layout = html_get_resource($theme );
+$content = html_get_resource($theme , "hello.html");
 
-$footer = file_get_contents("../resource/footer.html");
-$body = str_replace("<<푸터에요>>",$footer,$body);
-
-echo $body;
+$layout = str_replace("{{contents}}",$content, $layout);//치환
+echo $layout;
