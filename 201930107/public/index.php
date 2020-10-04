@@ -1,16 +1,20 @@
 <?php
-$fileName = "../";
-$fileName .= "resource/layout.html"; // 복합연산자
-// . 문자열을 더하는 연산자
+// echo '시작';
 
-$body = file_get_contents($fileName);
-$header = file_get_contents("../resource/header.html");
-$footer = file_get_contents("../resource/footer.html");
+// include "resource.php";
 
-// body에 str_replace 함수의 결과값을 대입
-// 스트링을 치환
-$body = str_replace("{{header}}", $header, $body);
-$body = str_replace("{{footer}}", $footer, $body);
+// _once -> 동일한 파일이 include 됐을때, 한번만 동작
+// include_once "resource.php";
 
-echo $body;
-// 해당 경로 파일 내용 반환
+// include vs require
+// include : 파일 없을 시 경고 후 계속 실행
+// require : 파일 없을 시 프로그램 중단
+// require_once "resource.php";
+require_once "resource.php";
+
+$layout = "layout03";
+$layout = html_get_resource($layout);
+$content = html_get_resource("layout02", "hello.html");
+
+$layout = str_replace("{{contents}}", $content, $layout);
+echo $layout;
