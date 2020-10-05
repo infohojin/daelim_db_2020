@@ -1,30 +1,21 @@
 <?php
-#echo "여기가 시작이야~~";
-$filename = "../";
-$filename .= "resource/layout.html";
 
-#echo $filename;
-// 함수
-$body = file_get_contents($filename); 
-// 함수의 값을 대입, 파일을 읽어서 값을 반환
+include "resource.php";
+include "resource.php";
 
-$header = file_get_contents("../resource/header.html");
-#echo $header;
-$body = str_replace("{{header}}",$header,$body); // 문자열을 찾아서 치환해 주세요.
+$theme = "layout04";
+// $body = html_get_contents($theme);
+$color1 = "#0277bd";
+$color2 = "#512da8";
 
-$footer = file_get_contents("../resource/footer.html");
-$body = str_replace("{{footer}}",$footer,$body);
+$vars = ['header_color'=>$color2];
 
-// 함수 선언
-function main($filename, $body) // 2개의 값을 받아요
-{
-  $main = file_get_contents($filename);
-  $body = str_replace("{{main}}",$main,$body);
+$filename = "../resource/layout02/layout.html";
+$body = resource($filename, $vars);
 
-  return $body;
-}
+$content = html_get_contents($theme, "hello.html");
 
-// 함수 사용
-$body = main("../resource/main.html",$body);
+// 문자열 치환
+$body = str_replace("{{contents}}", $content, $body);
 
 echo $body;

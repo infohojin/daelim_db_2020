@@ -1,29 +1,18 @@
 <?php
-//소스코드
-//MVC 
-echo"여기가 시작";
-$filename = "../";
-$filename .= "resource/layout.html";
 
-//echo $filename;
-$body = file_get_contents($filename);
-// 함수의 값을 대입
-$header = file_get_contents("../resource/header.html");
-$body = str_replace("{{header}}",$header,$body); // 문자열을 찾아서 치환해주세요
+include "resource.php";
 
-function footer($filename,$body){
-    //코드를 함수로 만들것 -> 중괄호로 묶는다.
+$theme ="layout02";
+//$body = html_get_contents($theme);
 
-    $footer = file_get_contents($filename);
-    $body = str_replace("{{footer}}",$footer,$body); 
+$color1="0277bd";
+$color2="#512da8";
 
-    return $body;
-}
-//함수 사용
-$body = footer("../resource/footer.html",$body);
-    
+$vars =['header_color'=> $color2];
 
-$main = file_get_contents("../resource/main.html");
-$body = str_replace("{{main}}",$main,$body); 
-
+$filename = "../resource/layout02/layout.html";
+$body = resource($filename,$vars);
+$content = html_get_contents($theme,"hello.html");
+//문자열 치환
+$body = str_replace("{{contents}}",$content,$body);
 echo $body;
