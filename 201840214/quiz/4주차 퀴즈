@@ -1,0 +1,26 @@
+<4주차>
+Q1. 다음 소스코드에서 변수의 이름은??
+    $daelim = "대림대학교";
+    echo $daelim."\n";
+
+    echo ${"daelim"};
+    $name = "daelim";
+    echo ${$name};
+A1. daelim
+    -해설-> php는 $기호를 사용하여 동적 변수를 지정할 수 있다.
+
+Q2. 변수의 이름은 대소문자를 구별할 수 없다. (O , X)
+A2. X
+    -해설-> 대소문자를 구별할 수 있다.
+    예) $name = "안녕";
+        $NAME = "반가워";
+        echo $name;
+        echo $NAME;
+
+Q3. 다음 소스코드가 오류가 나는 이유는??
+    $hello = "안녕";
+    echo $hello;
+    unset($hello);
+    echo $hello;
+A3. unset($hello); 로 인해 메모리가 제거됐는데, 삭제하고 없는 hello를 호출하여 오류가 발생한 것이다.
+    -해설-> 덧붙여 이후에 프로그램을 종료시키면 변수가 메모리에서 사라진다.
