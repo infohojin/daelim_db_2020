@@ -1,34 +1,23 @@
 <?php
-// 소스코드
-// MVC => C(controller)
-#echo "여기가 시작이야~~";
-$filename = "../"; // 상위
-$filename .= "resource/layout.html";
 
-#echo $filename;
-// 함수
-$body = file_get_contents($filename); 
-// 함수의 값을 대입, 파일을 읽어서 값을 반환
+include  "resource.php";
+include  "resource.php";
 
-$header = file_get_contents("../resource/header.html");
-#echo $header;
-$body = str_replace("{{header}}",$header,$body); // 문자열을 찾아서 치환해 주세요.
+$theme = "layout04";
+//$body = html_get_content($theme);
 
-$footer = file_get_contents("../resource/footer.html");
-$body = str_replace("{{footer}}",$footer,$body); 
+$color1="#0277bd";//초기값1
+$color2="#512da8";//초기값2
 
-// 함수 선언
-function main($filename, $body) // 2개의 값을 받아요
-{
-    // 코드를 함수로 만들 거에요.
-    // 코드를 묶어줘야 합니다.
-    $footer = file_get_contents($filename);
-    $body = str_replace("{{main}}", $footer, $body);
+$vars = ['header_color'=>$color2];//연상배열
 
-    return $body;
-}
+$filename = "../resource/layout02/layout.html";
+$body = resource($filename);
 
-// 함수 사용
-$body = main("../resource/main.html", $body);
+$content = gtml_get_contents($theme, "hello.html");
 
-echo $body; 
+// 문자열 치환
+$body = str_replace("{{content}}",$content, $body);
+
+
+echo $body;

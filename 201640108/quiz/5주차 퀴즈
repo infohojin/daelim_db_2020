@@ -1,0 +1,21 @@
+1. 변수란 무엇인가?
+정담 - 계속 변하는 값이면서, 그 값을 저장하는 공간
+
+2. footer란 무엇인가?
+정답 - footer는 꼬리말을 의미하며 인쇄 때 문서의 각 페이지 아랫부분에
+자동으로 첨가되는 표제, 날짜 등을 의미한다.
+
+3. 다음 아래 코드를 입력할때 쉽게 입력할 수 있는 방법이 있다 그 방법은 무엇인가?
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+정답 - Shift + ! 후에 Ent 또는 Tab 을 누르면 쉽게 작성할 수 있다.

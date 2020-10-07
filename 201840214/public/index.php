@@ -1,31 +1,19 @@
 <?php
-//echo "여기가 시작이얏~~~~~~~~~~~~~~";
+include "resource.php";
+include "resource.php";
 
-$filename = "../";
-$filename .= "resource/layout.html";
+$theme = "layout04";
+// $body = html_get_contents($theme);
 
-echo $fimename;
+$color1 = "#0277bd"; // 초기값1
+$color2 = "#512da8"; // 초기값2
 
-$body = file_get_contents($filename);
+$vars = ['header_color'=>$color2]; //연상배열
 
-$header = file_get_contents("../resource/header.html");
-//echo $header;
-$body = str_replace("{{header}}",$header,$body);
+$filename = "../resource/layout02/layout.html";
+$body = resource($filename, $vars);
 
-$footer = file_get_contents("../resource/footer.html");
-$body = str_replace("{{footer}}",$footer,$body);
+$content = html_get_contents($theme,"hello.html");
 
-$main = file_get_contents("../resource/main.html");
-$body = str_replace("{{main}}",$main,$body);
-
-function footer($filename, $body)
-{
-    $footer = file_get_contents($filename);
-    $body = str_replace("{(main)}", $footer, $body);
-
-    return $body;
-}
-$body = footer("../resource/main.html", $body);
-
-
-echo $body;
+// 문자열 치환
+$body = str_replace("{{contents}}", $content, $body);

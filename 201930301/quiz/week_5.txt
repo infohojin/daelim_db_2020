@@ -1,5 +1,5 @@
 1. PHP에서 문자열을 결합할 때 사용하는 기호는?
-① $sum + "<br>"  ② $lastname.$firstname ③  ④ 
+① $sum + "<br>"  ② $lastname.$firstname ③ $num1 - $num2 ④ $phone , $num
 정답 : 2. $lastname.$firstname
 해설 : PHP에서 문자열과 문자열을 결합할 때에는 점(.)기호를 사용한다.
 
