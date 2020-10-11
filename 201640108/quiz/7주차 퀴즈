@@ -1,0 +1,24 @@
+1. 다음중 코드의 결과값을 kimwooseop 이 나올 수 있게 빈칸을 채워 넣으시오
+<?php
+
+function myname($info)
+{
+    return $info['first'] . $info['last'];
+}
+
+$my = myname([                            ]);
+echo "<hr>";
+echo $my;
+
+정답 : 'first'=>"kim", 'last'=>"wooseop"
+
+2. 아래처럼 결과값이 나오려면 어떤 태그를 써야하는가?
+    hello
+    hello1
+    hello2
+정답 : <br>
+
+3. 아래처럼 결과값이 나오려면 어떤 태그를 써야하는가?
+    hello
+    ----------------------------------------------------
+정답 : <hr>
