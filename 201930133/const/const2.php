@@ -2,6 +2,8 @@
 // const PI = 3.14; //변하지 않는 값
 // PI는 3.14만 사용하는 고정값
 
+// if 일 경우 ▼
+// define("PI",31);
 
 if(defined("PI")){
 
