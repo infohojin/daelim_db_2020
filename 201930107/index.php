@@ -18,6 +18,11 @@ function showDir($path) {
         } else {
             // 파일
             echo "<li><a href='" . $path . "/" . $v . "'>" . $v . "</a></li>";
+            // echo "<li>" . $path . "<li>" . file_get_contents("$path/$v") . "</li></li>";
+            // echo "<li>";
+            // echo file_get_contents("$path/$v");
+            // echo "</li>";
+            // echo "</li>";
         }
     }
     echo "</ul>";
