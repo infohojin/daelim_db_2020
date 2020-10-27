@@ -1,5 +1,5 @@
 <?php
-
+/*----------------------------------------------------------
 $file_name = "../"; // 상위폴더
 $file_name .= "resource/layout.html"; // 복합연산자 - .은 문자열을 연결
 
@@ -14,4 +14,21 @@ $footer = file_get_contents("../resource/footer.html");
 $body = str_replace("{{header}}", "$header", $body);
 $body = str_replace("{{footer}}", "$footer", $body);
 
+echo $body;
+-----------------------------------------------------------*/
+
+/*
+include => 같은 파일 여러 번 포함 가능 / 포함할 파일이 없어도 다음 코드 실행
+include_once => 같은 파일 한 번만 포함 / 포함할 파일이 없어도 다음 코드 실행
+
+require => 같은 파일 여러 번 포함 가능 / 포함할 파일이 없으면 다음 코드 실행하지 않음
+require_once => 같은 파일 한 번만 포함 / 포함할 파일이 없으면 다음 코드 실행하지 않음
+*/
+
+require_once "resource.php";
+
+$body = html_get_resource("layout2", "layout03.html");
+$content = file_get_contents("../resource/layout2/hello.html");
+
+$body = str_replace("contents", $content, $body);
 echo $body;
