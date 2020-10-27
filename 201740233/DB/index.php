@@ -1,15 +1,17 @@
 <?php
 
-$db = new mysqli("localhost", "root", "911059", "phpdaelim5");
+// 객체 생성
+$db = new mysqli("localhost","root", "911059","phpdaelim5");
 
-if ($db -> connect_error) {
-    echo "DB 접속 성공";
-    $query = "selelct * from members";
-    $result = mysql_query($query);
+if ($db) {
+    echo "DB 접속 성공"."<br>";
+
+    $query = "select * from members";
+    $result = mysqli_query($db, $query);
     if ($result) {
-        $row = mysql_fetch_object($result);
+        $row = mysqli_fetch_object($result);
         print_r($row);
-    }
+    } 
 } else {
-    echo "DB 접속 실패";
+    echo "접속실패";
 }
