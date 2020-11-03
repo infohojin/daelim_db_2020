@@ -13,7 +13,7 @@ $db0 = new mysqli(
 
 if($db0) {
     echo "DB 접속 성공"."<br>"; 
-    $query = "SELECT * FROM phpdaelim4.members;";  // SQL QUERY문
+    $query = "SELECT * FROM phpdaelim4.instagram;";  // SQL QUERY문
     $result = mysqli_query($db0, $query);  // DB서버로 전송
     if($result){
         // echo "<pre>";
