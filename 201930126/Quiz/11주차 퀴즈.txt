@@ -1,0 +1,35 @@
+1)다음 코드의 출력 값은?
+index.php
+
+$form = file_get_contents("../resource/new.html");
+echo $form;
+
+new.html
+<h1>제목을 입력해주세요</h1>
+
+답: 제목을 입력해주세요
+file_get_contents는 다른 폴더의 파일을 가지고온다
+
+
+
+2)다음 코드의 역할은 무엇인가?
+index.php
+
+if($title)
+    {
+     $query = "INSERT INTO `phpdaelim5`.`$tablename` (`title`) VALUES ('$title')";
+     echo $query;
+     $result = mysqli_query($db0, $query);
+     $url = "insta.php";
+     header("location :" . $url);
+    }
+
+답: 공백을 전송하지않게하고 특정 이벤트발생시에 insta.php로돌아오는 코드
+
+
+
+
+3)다음 get방식과 post방식의 차이점은?
+
+답: get은 입력값과 정보가 url에 보이며 post는 get에비해 보안이 뛰어남
+get은 보안에 취약하며 post는 get보다 보안이 좋음
