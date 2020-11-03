@@ -14,12 +14,14 @@ $db0 = new mysqli(
 
 if ($db0) {
     echo "DB 접속 성공"."<br>";
-    $query = "SELECT * FROM phpdaelim4.members;"; // SQL 쿼리문
+    $query = "SELECT * FROM phpdaelim4.instagram;"; // SQL 쿼리문
     $result = mysqli_query($db0, $query); // DB서버로 전송
     if ($result) {
         $rows = getRowData($result);
-        viewTable($rows);
+        viewTable($rows); // 테이블
     }
+
+    echo "<a href='new.php'>New</a>";
     
 } else {
     echo "접속실패";
