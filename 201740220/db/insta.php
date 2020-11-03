@@ -15,7 +15,9 @@ $db0 = new mysqli(
 if ($db0) {
     echo "DB 접속 성공"."<br>";
     
-    $query = "SELECT * FROM phpdaelim5.members;"; // SQL 쿼리문
+    // 쿼리 스키마.테이블
+    $tablename = "instagram";
+    $query = "SELECT * FROM phpdaelim5." . $tablename . ";";// SQL 쿼리문
     
     //쿼리 정보를 전송해서,
     // 결과값.
@@ -26,6 +28,9 @@ if ($db0) {
     } else {
         echo "데이터 읽기 실패";
     }
+
+    echo "<a href='add.php'>추가</a>";
+    echo "<a href='new.php'>NEW</a>";
 
 } else {
     echo "접속 실패";
@@ -41,7 +46,7 @@ function getRowData($result) {
         $rows []= mysqli_fetch_object($result);
     }
     echo "<pre>";
-    print_r($rows);
+    //print_r($rows);
     return $rows;
 }
 
