@@ -14,7 +14,9 @@
     );
     if ($db0) {
         echo "DB 접속 성공"."<br>";
-        $query = "SELECT * FROM phpdaelim5.members;"; // SQL 쿼리문
+
+        $tablename = "instargram";
+        $query = "SELECT * FROM phpdaelim5.".$tablename.";"; // SQL 쿼리문
 
         // 쿼리 정보를 전송해서,
         // 결과값,
@@ -23,12 +25,12 @@
 
             $rows = getRowData($result); // 데이터 읽어오기
             viewTable($rows); // 테이블로 출력하기
-
-            viewTable($rows);
             
         } else {
             echo "데이터 읽기 실패";
         }
+        echo "<a href = 'add.php'>추가</a>";
+        echo "<a href = 'new.php'>New</a>";
     
     } else {
         echo "접속 실패";
@@ -42,10 +44,9 @@
         $rows = []; // 배열변수 초기화
         for($i=0;$i<$cnt;$i++) {
             $rows [] = mysqli_fetch_object($result);
-            
         }
         echo "<pre>";
-        print_r($rows);
+        //print_r($rows);
         return $rows;
     }
 
