@@ -20,16 +20,18 @@ $db0 = new mysqli(
     $dbInfo['master']['dbSchema'], 
     $dbInfo['master']['dbPort']
 );
+// INSERT INTO `phpdaelim5`.`instagram` (`title`) VALUES ('테스트입니다.');
 
 if($db0) {
     echo "DB 접속 성공.<br>";
-
-    $query = "select * from members"; // SQL 쿼리문
+    $tablename = "instagram";
+    /*
+    $query = "select * from phpdaelim5.$tablename;"; // SQL 쿼리문
     
     // 쿼리 정보 전송,
     // 결과값
     $result = mysqli_query($db0, $query); // DB서버로 전송
-
+    
     
     if($result) {
         $rows = getRowData($result); // 데이터 읽어오기
@@ -42,6 +44,19 @@ if($db0) {
     } else {
         echo "데이터 읽기 실패";
     }
+    */
+    
+    $title = $_GET['title'];
+    $query = "INSERT INTO phpdaelim5.$tablename (title) VALUES ('$title');";
+    echo $query;
+    $result = mysqli_query($db0, $query); // DB서버로 전송
+
+    // 페이지를 이동합니다.
+    $url = "insta.php";
+    // post redirect get pattern
+    // header("HTTP/1.1 301 Moved Permanently");
+    header("location:$url");
+    
 } else {
     echo "접속 실패";
 }

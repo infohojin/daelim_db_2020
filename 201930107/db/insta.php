@@ -23,8 +23,8 @@ $db0 = new mysqli(
 
 if($db0) {
     echo "DB 접속 성공.<br>";
-
-    $query = "select * from members"; // SQL 쿼리문
+    $tablename = "instagram";
+    $query = "select * from phpdaelim5.$tablename;"; // SQL 쿼리문
     
     // 쿼리 정보 전송,
     // 결과값
@@ -33,15 +33,19 @@ if($db0) {
     
     if($result) {
         $rows = getRowData($result); // 데이터 읽어오기
-        echo "<h3>";
-        echo "<pre>";
-        print_r($rows);
-        echo "</pre>";
-        echo "</h3>";
+        // echo "<h3>";
+        // echo "<pre>";
+        // print_r($rows);
+        // echo "</pre>";
+        // echo "</h3>";
         viewTable($rows); // 읽은 데이터 테이블로 출력
     } else {
         echo "데이터 읽기 실패";
     }
+
+    $title = "대숙이";
+    echo "<a href='add.php'>추가</a>";
+    echo "<a href='new.php?title=`대림대학교`'>new</a>";
 } else {
     echo "접속 실패";
 }
