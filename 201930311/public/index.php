@@ -1,24 +1,20 @@
 <?php
 
-$filename = "../";
-$filename .= "resource/layout.html";
+include "resource.php";
+include "resource.php";
 
-//echo $filename;
-$body = file_get_contents($filename);
+$theme = "layout04";
 
-$header = file_get_contents("../resource/header.html");
-$body = str_replace("{{header}}",$header,$body);
+$color1="#0277bd"; // 초기값1
+$color2= "#512da8"; // 초기값2
 
-$footer = file_get_contents("../resource/footer.html");
-$body = str_replace("{{footer}}",$footer,$body);
+$vars = ['header_color'=>$color2]; //연상배열
 
-function main($filename,$body){
-    $footer = file_get_contents($filename);
-    $body = str_replace("{{main}}",$footer,$body);
+$filename = "../resource/layout02/layout.html";
+$body = resource($filename, $vars);
+// $body = html_get_contents($theme);
 
-    return $body;
-}
+$content = html_get_contents($theme,"hello.html");
 
-$body = main("../resource/main.html",$body);
-
+$body = str_replace("{{contents}}", $content, $body);
 echo $body;

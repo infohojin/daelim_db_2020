@@ -1,0 +1,50 @@
+1) 다음 클래스 3단계 호출순서를 쓰시오
+
+답: 선언-> 생성-> 호출
+클래스는 선언후에 new로생성후 원하고자하는 값 등을 호출한다
+
+
+
+2) 다음 코드를 보고 틀린것을 고르시오
+class DaelimUniv
+{
+    public function hello($name)
+    {
+        echo $name;
+    }
+}
+
+$obj = new DaelimUniv;
+$obj ->hello("daelim");
+
+1.hello는 함수야
+
+2.마지막코드는 호출하는거야
+
+3.클래스의 이름은 카멜코드를 권장하지 않아
+
+4. 클래스안에 함수가있어
+
+5.$obj = new DaelimUniv;는 클래스 생성을 하고있어
+
+답: 3
+클래스의 이름은 카멜코드를 권장함
+
+
+
+3) 다음 빈칸에 들어갈 말은?
+
+(빈-------------칸)
+class daelimuniv
+{
+    public function hello($name)
+    {
+        echo $name;
+    }
+}
+$obj = new \modules\jiny\daelimuniv;
+$obj ->hello("daelim");
+
+답:namespace modules\jiny;
+
+생성시 경로설정이 있으면 namespace사용한것을 알수있다
