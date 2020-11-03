@@ -2,9 +2,9 @@
 
 
 if(function_exists("hello")){
-    echo "hello 함수가 존재하네요"
-} else {
-    echo "hello 함수가 뭐에여? 첨 들었어열"
+    echo "hello 함수가 존재하네요";
+}else {
+    echo "hello 함수가 뭐에여? 첨 들었어열";
 }
 
 function hello($name="1234546")
