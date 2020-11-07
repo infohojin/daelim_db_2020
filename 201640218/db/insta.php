@@ -1,5 +1,7 @@
 <?php
+
 echo "대림대학교";
+
 
 $dbinfo = include "../dbinfo.php";
 // 객체 생성
@@ -12,13 +14,13 @@ $db = new mysqli(
 
 if ($db) {
     echo "DB 접속 성공"."<br>";
-    $query = "SELECT * FROM phpdaelim4.members;"; // SQL 쿼리문
+    $query = "SELECT * FROM phpdaelim4.instagram;"; // SQL 쿼리문
     $result = mysqli_query($db, $query); // DB서버로 전송
     if ($result) {
         $rows = getRowData($result);
         viewTable($rows);
     }
-
+    echo "<a href='new.php'>NEW</a>";
 } else {
     echo "접속실패";
 }
