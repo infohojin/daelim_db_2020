@@ -17,12 +17,15 @@ $db = new mysqli(
 
 if ($db) {
     echo "DB 접속 성공"."<br>";
-    $query = "SELECT * FROM phpdaelim4.members;";
+    $query = "SELECT * FROM phpdaelim4.instagram;";
     $result = mysqli_query($db,$query);
     if($result){
         $rows = getRowData($result);
-        viewTable($rows);
+        viewTable($rows);//테이블 보여줌
     }
+
+    echo "<a href='new.php'>New</a>";
+
 } else {
     echo "접속실패";
 }

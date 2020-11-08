@@ -12,6 +12,6 @@ try{
         echo "DB접속 실패";
     }
 }catch(PDOException $e){
-    //생성하다가 오류
+    //생성하다가 오류가 났다 
     echo $e->getMessage();
 }
