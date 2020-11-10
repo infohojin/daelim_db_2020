@@ -14,12 +14,15 @@ $db0 = new mysqli($dbinfo['master']['dbhost'],
 );
 if ($db0) {
     echo "DB 접속 성공"."<br />";
+   
+    // 쿼리 스키마.테이블
+    $tablename = "instagram";
+     /*
+    $query = "SELECT * FROM phpdaelim5." . $tablename . ";";
 
-    // 쿠리 정보를 전송해서,
+    // 쿼리 정보를 전송해서,
     // 결과값
-    $query = "select * from phpdaelim5.members";
     $result = mysqli_query($db0, $query);
-
     if ($result) {
         
         $rows=getRowDAta($result); // 데이터 읽어오기
@@ -29,6 +32,17 @@ if ($db0) {
     } else {
         echo "데이터 읽기 실패";
     }
+    */
+
+    $title = $_GET['title'];
+    $query = "INSERT INTO phpdaelim5.".$tablename." (`title`) VALUES ('".$title."');";
+    echo $query;
+    $result = mysqli_query($db0, $query);  // DB로 전송
+
+    $url = "insta.php";
+    // // header("HTTP/1.1 301 Moved Permanently");
+    header("location:" . $url);
+    
 } else {
     echo "접속 실패";
 }
@@ -42,11 +56,10 @@ function getRowData($result){
 
     for($i=0; $i<$cnt; $i++) {
         $rows [] = mysqli_fetch_object($result);
-        
     }
 
     echo "<pre>";
-    print_r($rows);
+    // print_r($rows);
     return $rows;
 
 }

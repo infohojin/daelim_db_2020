@@ -15,11 +15,13 @@ $db0 = new mysqli($dbinfo['master']['dbhost'],
 if ($db0) {
     echo "DB 접속 성공"."<br />";
 
+    // 쿼리 스키마.테이블
+    $tablename = "instagram";
+    $query = "SELECT * FROM phpdaelim5." . $tablename . ";";
+
     // 쿠리 정보를 전송해서,
     // 결과값
-    $query = "select * from phpdaelim5.members";
     $result = mysqli_query($db0, $query);
-
     if ($result) {
         
         $rows=getRowDAta($result); // 데이터 읽어오기
@@ -29,6 +31,8 @@ if ($db0) {
     } else {
         echo "데이터 읽기 실패";
     }
+    echo "<a href='add.php'>추가</a>";
+    echo "<a href='new.php'>New</a>";
 } else {
     echo "접속 실패";
 }
@@ -46,7 +50,7 @@ function getRowData($result){
     }
 
     echo "<pre>";
-    print_r($rows);
+    // print_r($rows);
     return $rows;
 
 }
@@ -59,18 +63,15 @@ function viewTable($rows){
         // 열을 출력하겠다.
         echo "<tr>";
 
-
         // 각각의 index 배열을 선택
         // 안에 있는 연상배열을 반복 루프 반복문
         foreach($rows[$i] as $value){
             // 행 출력
             echo "<td>".$value."</td>";
-    
         }
 
         echo "</tr>";
     }
-    
     
     echo "</table>";
 }
