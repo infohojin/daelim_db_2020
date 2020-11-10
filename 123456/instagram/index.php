@@ -65,6 +65,9 @@ function viewTable($rows) {
     // 부트스트랩 클래스 이름추가
     $str = "<table class=\"table table-striped\">"; // 이스케이프 삽입
     // index 배열의 갯수를 확인해서 반복함
+
+    $str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>성별</td></tr>";
+
     for($i=0;$i<count($rows);$i++) {
         // 열을 출력하겠다.
         $str .= "<tr>";
