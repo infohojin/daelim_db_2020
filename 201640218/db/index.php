@@ -1,5 +1,7 @@
 <?php
 echo "대림대학교";
+
+$dbinfo = include "../dbinfo.php";
 // 객체 생성
 $db = new mysqli(
     "localhost", // mysql 서버주소

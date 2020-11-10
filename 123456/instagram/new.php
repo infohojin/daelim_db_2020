@@ -40,6 +40,49 @@ if ($db0) {
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
 
+// 2차원 배열
+$param = [
+    'title' => [
+        'title' => "제목",
+        'name' => "title",
+        'description' => "제목을 입력해 주세요"
+    ],
+    'description' => [
+        'title' => "내용",
+        'name' => "description",
+        'description' => "내용을 입력해 주세요"
+    ],
+    'picture' => [
+        'title' => "사진",
+        'name' => "picture",
+        'description' => "사진을 등록해 주세요"
+    ]
+];
+$inputs = "";
+foreach($param as $p) {
+    $inputs .= form_input($p);
+}
+
+$contents = str_replace("{{formlist}}", $inputs, $contents); // 항목 삽입
+
 $layout = str_replace("{{contents}}",$contents,$layout);
 
 echo $layout;
+
+function form_input($arg) {
+    global $path;
+    
+    // $arg 1차원 배열
+    extract($arg); // 베열의 키값으로 지역변수를 자동으로 생성.
+    //$title = $arg['title'];
+    //$name = $arg['name'];
+    //$desctiption = $arg['description'];
+
+    //# 폼의 항목 1개 생성
+    $form_input = file_get_contents($path."form_input.html");
+
+    $form_input = str_replace("{{title}}", $title, $form_input);
+    $form_input = str_replace("{{name}}", $name, $form_input);
+    $form_input = str_replace("{{description}}", $desctiption, $form_input);
+    return $form_input;
+}

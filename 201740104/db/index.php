@@ -20,11 +20,8 @@ if ($db0) {
     $result = mysqli_query($db0, $query); // DB서버로 전송
    
     if ($result) {
-        
-        $rows = getRowData($result); //데이터 읽어오기
-     viewTable($rows); // 테이블로 출력하기
-     
-        
+    $rows=getRowData($result);
+       viewTable($rows);
     } else {
         echo "데이터 읽기 실패";
     }
@@ -32,40 +29,40 @@ if ($db0) {
 } else {
     echo "접속 실패";
 }
-
 function getRowData($result) {
- //데이터 갯수
- $cnt = mysqli_num_rows($result);
- echo "데이터 갯수는 =".$cnt."<br>";
- 
- $rows = []; // 배열변수 초기화
-  for($i=0; $i<$cnt; $i++){
-     $rows []= mysqli_fetch_object($result);
-    // print_r($row);
-   
-  }
-  echo "<pre>";
-  print_r($rows);
-  return $rows;
-}
-// 2차원 배열 => 테이블로 출력
-function viewTable($rows) {
+     //데이터 갯수
+     $cnt = mysqli_num_rows($result);
 
+     echo "데이터 갯수는 =".$cnt."<br>";
+     $rows = [];
+
+      for($i=0; $i<$cnt; $i++){
+         $rows []= mysqli_fetch_object($result);
+         //print_r($row);
+         }
+        echo "<pre>";
+        print_r($rows);
+        return $rows;
+}
+
+
+
+ function viewTable($rows){
     echo "<table border=1>";
-    // index 배열의 갯수를 확인해서 반복함
-    for($i=0;$i<count($rows);$i++) {
-        // 열을 출력하겠다.
-        echo "<tr>";
+    //index 배열의 갯수를 확인해서 반복함
+for($i=0;$i<count($rows);$i++){
+    echo "<tr>"; //열출력
 
-        // 각각의 index 배열을 선택
-        // 안에 있는 연상배열을 반복 루프 반복문.
-        foreach($rows[$i] as $value) {
-            // 행 출력
-            echo "<td>".$value."</td>";
-           }
-        echo "</tr>";
+//각각의 index 배열을 선택
+//안에있는 연상배열을 반복하는 루프 반복문
+    foreach($rows[$i] as $value) {
+
+        echo "<td>".$value."</td>";//행출력
     }
-
- 
-    echo "</table>";
+    echo "</tr>";
 }
+  
+    
+
+    echo "</table>";
+ }

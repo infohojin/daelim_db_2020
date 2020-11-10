@@ -1,22 +1,5 @@
 <h1>글쓰기 입니다.</h1>
 <form action="new.php" method="post">
-    <div class="form-group">
-        <label for="exampleInputEmail1">제목</label>
-        <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div class="form-group">
-        <label for="exampleInputEmail1">내용</label>
-        <input type="text" name="description" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
-    <div class="form-group">
-        <label for="exampleInputEmail1">AAA</label>
-        <input type="text" name="aaa" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-
+    {{formlist}}
     <input type="submit" value="전송">
 </form>
