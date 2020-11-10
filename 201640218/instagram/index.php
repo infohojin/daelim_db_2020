@@ -1,7 +1,9 @@
 <?php
-echo "대림대학교";
 
+// echo "대림대학교";
+include "theme.conf.php";
 $dbinfo = include "../dbinfo.php";
+
 // 객체 생성
 $db = new mysqli(
     $dbinfo['master']['dbhost'], // mysql 서버주소
@@ -11,14 +13,23 @@ $db = new mysqli(
 );
 
 if ($db) {
-    echo "DB 접속 성공"."<br>";
-    $query = "SELECT * FROM phpdaelim4.members;"; // SQL 쿼리문
+    // echo "DB 접속 성공"."<br>";
+    $query = "SELECT * FROM phpdaelim4.instagram;"; // SQL 쿼리문
     $result = mysqli_query($db, $query); // DB서버로 전송
     if ($result) {
         $rows = getRowData($result);
-        viewTable($rows);
+        
     }
+    //echo "<a href='new.php'>NEW</a>";
+    
+    $layout = file_get_contents($theme['layout']); // 파일을 읽고 변수에 넣음 \
+    
+        $contents = file_get_contents($theme['list']);
+        $contents = str_replace("{{datatable}}", viewTable($rows), $contents);
 
+    $layout = str_replace("{{contents}}", $contents, $layout); 
+    echo $layout; // 출력 
+    
 } else {
     echo "접속실패";
 }
@@ -26,7 +37,7 @@ if ($db) {
 function getRowData($result) {
     // 데이터 갯수
     $cnt = mysqli_num_rows($result);
-    echo "데이터의 갯수는 = ".$cnt."<br>";
+    // echo "데이터의 갯수는 = ".$cnt."<br>";
 
     $rows = []; // 배열을 초기화
     for( $i=0; $i<$cnt; $i++) {
@@ -38,15 +49,16 @@ function getRowData($result) {
 }
 
 function viewTable($rows) {
-    echo "<table border=1>";
+    $str = "<table class=\"table table-striped\">"; // 변수 초기화
     // 반복문
     for( $i=0; $i<count($rows); $i++)
     {
-        echo "<tr>";
+        $str .= "<tr>";
         foreach ($rows[$i] as $value) {
-            echo "<td>".$value."</td>";
+            $str .= "<td>".$value."</td>";
         }
-        echo "</tr>";
+        $str .= "</tr>";
     }
-    echo "</table>";
+    $str .= "</table>";
+    return $str;
 }

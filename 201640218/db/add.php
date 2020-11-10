@@ -6,10 +6,10 @@ if(isset($_GET['title'])) {
     echo "입력한 값은 = ".$_GET['title'];
     $dbinfo = include "../dbinfo.php";
     $db = new mysqli(
-        "localhost", // mysql 서버주소
-        "daelim4", // 사용자아이디
-        "123456", // 패스워드
-        "phpdaelim4" // 스키마
+        $dbinfo['master']['dbhost'], // mysql 서버주소
+        $dbinfo['master']['dbuser'], // 사용자아이디
+        $dbinfo['master']['dbpass'], // 패스워드
+        $dbinfo['master']['dbschema'] // 스키마
     );
     $query = "INSERT INTO `phpdaelim4`.`members` (`username`) VALUES ('".$_GET['title']."');";
     echo $query;
