@@ -13,18 +13,37 @@ $db0 = new mysqli(
     $dbinfo['master']['dbschema']
 );
 if ($db0) {
-    echo "DB 접속 성공"."<br>";
-    
-    $query = "SELECT * FROM phpdaelim5.members;"; // SQL 쿼리문
+     echo "DB 접속 성공"."<br>";
 
-    $result = mysqli_query($db0, $query); // DB서버로 전송
+    // //쿼리 스키마.테이블
+     $tablename = "instagram";
+
+    // $query = "SELECT * FROM phpdaelim5." . $tablename . ";";// SQL 쿼리문
+
+    // $result = mysqli_query($db0, $query); // DB서버로 전송
    
-    if ($result) {
-    $rows=getRowData($result);
-       viewTable($rows);
-    } else {
-        echo "데이터 읽기 실패";
-    }
+    // if ($result) {
+    // $rows=getRowData($result);
+    //    viewTable($rows);
+
+
+ 
+         
+
+    // } else {
+    //     echo "데이터 읽기 실패";
+    // }
+
+$title=$_GET['title'];
+$query = "INSERT INTO phpdaelim5.". $tablename . " (`title`) VALUES ('".$title."');";
+echo $query;
+  $result = mysqli_query($db0, $query); // DB서버로 전송
+
+$url = "insta.php";
+//header("HTTP/1.1 301 Moved Permanently");
+header("location:".$url);
+
+
 
 } else {
     echo "접속 실패";
