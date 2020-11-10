@@ -21,6 +21,8 @@ if($db0) {
         $rows = getRowData($result);
         viewTable($rows);
     }
+    echo "<a href='new.php'>New</a>";
+    
 } else {
     echo "DB 접속 실패"."<br>";
 }
