@@ -14,14 +14,11 @@
     );
     if ($db0) {
         echo "DB 접속 성공"."<br>";
-        
         $query = "SELECT * FROM phpdaelim5.members;"; // SQL 쿼리문
 
         // 쿼리 정보를 전송해서,
         // 결과값,
         $result = mysqli_query($db0, $query); // DB서버로 전송
-
-        // 데이터의 갯수
         if ($result) {
 
             $rows = getRowData($result); // 데이터 읽어오기
