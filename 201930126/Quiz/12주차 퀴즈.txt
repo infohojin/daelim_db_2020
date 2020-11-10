@@ -1,0 +1,29 @@
+1)엔업 기능의 사용방법과 사용이유는?
+
+답: html 작성시 기본 구성을 나타내는 것에 대한 시간을 단축하기 위함이며 !표를 사용한다
+
+
+2)extract($arg);란 무엇인가
+
+답:베열의 키값으로 지역변수를 자동으로 생성하는 함수이다
+
+3) 이러한코드를 무엇이라 말하는가?
+$param = [
+    'title' => [
+        'title' => "제목",
+        'name' => "title",
+        'description' => "제목을 입력해 주세요"
+    ],
+    'description' => [
+        'title' => "내용",
+        'name' => "description",
+        'description' => "내용을 입력해 주세요"
+    ],
+    'picture' => [
+        'title' => "사진",
+        'name' => "picture",
+        'description' => "사진을 등록해 주세요"
+    ]
+];
+
+답: 2차원 배열
