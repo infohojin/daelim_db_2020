@@ -5,6 +5,7 @@ $dbinfo['master'] = [
     'dbuser' => "daelim4",
     'dbpass' => "123456",
     'dbschema' => "phpdaelim4",
+    'dbport' => "3306",
 ];
 
 return $dbinfo;
