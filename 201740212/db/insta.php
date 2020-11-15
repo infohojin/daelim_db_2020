@@ -14,7 +14,7 @@ $db0 = new mysqli(
 );
 
 if($db0) {
-    echo "<br>"."DB 접속 성공"."<br>";
+    //echo "<br>"."DB 접속 성공"."<br>";
 
 
     // 쿼리 스키마.테이블
