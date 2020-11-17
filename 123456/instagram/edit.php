@@ -42,7 +42,9 @@ if ($db0) {
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
-$contents = str_replace("{{id}}", "", $contents);
+
+//echo $_GET['id'];
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
 
 // 2차원 배열
 /*
@@ -69,6 +71,16 @@ foreach($param as $p) {
 }
 */
 
+$tablename = "instagram";
+$query = "SELECT * FROM phpdaemin5." . $tablename . " where id=".$_GET['id'].";"; // SQL 쿼리문
+echo $query; //쿼리가 실행
+$result = mysqli_query($db0, $query);
+if ($result) {
+    $row = mysqli_fetch_object($result);
+    print_r($row);
+}
+    
+
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
 $bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
@@ -84,6 +96,10 @@ foreach($tableinfo as $fieldname) {
     $inputForm = $bootstapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+    
+    // 값...
+    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
+
     $inputs .= $inputForm;
 }
 
