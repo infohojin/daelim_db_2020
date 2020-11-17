@@ -12,6 +12,7 @@ $db0 = new mysqli($dbinfo['master']['dbhost'],
                  $dbinfo['master']['dbschema'],
                  $dbinfo['master']['dbport']
 );
+
 if ($db0) {
     // DB접속 성공
     $tablename = "instagram";
@@ -19,16 +20,23 @@ if ($db0) {
     if ($title) {
         //print_r($_POST);
         //$query = "INSERT INTO phpdaelim5.".$tablename." (`title`) VALUES ('".$title."');";
-        $query = "INSERT phpdaelim5.".$tablename." SET ";
+        // $query = "INSERT phpdaelim5.".$tablename." SET ";
+        $query = "UPDATE phpdaelim5.".$tablename." SET ";
         foreach($_POST as $key => $value) {
-            $query .= "`".$key."`='".$value."', ";
+            $query .= "`".$key."`='".$value."',";
         }
+
+        $query = rtrim($query, ",");
         // $query .= "`title`='".$title."', ";
         // $query .= "`description`='".$_POST['description']."', ";
-        $query .= "`regdate`='".date("Y-m-d", time())."'";
+        // $query .= "`regdate`='".date("Y-m-d", time())."'";
+
+        $query .= " where id='".$_POST['id']."'";
+
         echo $query;
-        //exit;  // 프로그램 중단
+        // exit;  // 프로그램 중단
         $result = mysqli_query($db0, $query);  // DB로 전송
+
         // 페이지를 이동합니다.
         $url = "/";
         header("location:" . $url);
@@ -38,8 +46,10 @@ if ($db0) {
 }
 
 $layout = file_get_contents($theme['layout']);
-$contents = file_get_contents($theme['new']);
-$contents = str_replace("{{id}}", "", $contents);
+$contents = file_get_contents($theme['edit']);
+
+// echo $_GET['id'];
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
 
 /*
 $param = [
@@ -65,6 +75,15 @@ foreach($param as $p) {
 }
 */
 
+$tablename = "instagram";
+$query = "SELECT * FROM phpdaelim4." . $tablename . " where id=".$_GET['id'].";";
+echo $query;
+$result = mysqli_query($db0, $query);
+if ($result) {
+    $row = mysqli_fetch_object($result);
+    print_r($row);
+}
+
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
 $bootstrapInput = file_get_contents("../resource/bootstrap/form_input.html");
@@ -79,25 +98,31 @@ foreach($tableinfo as $fieldname) {
     $inputForm = $bootstrapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
     $inputs .= $inputForm;
 }
+$inputs .= "<input type=hidden name=id value=".$_GET['id'].">";
 
 $contents = str_replace("{{formlist}}", $inputs, $contents);  // 항목 삽입
 
 $layout = str_replace("{{contents}}", $contents, $layout);
+
 echo $layout;
+
 function form_input($arg) {
     global $path;
-    
+
     // $arg 1차원 배열
     extract($arg); // 베열의 키값으로 지역변수를 자동으로 생성.
     //$title = $arg['title'];
     //$name = $arg['name'];
     //$desctiption = $arg['description'];
+
     //# 폼의 항목 1개 생성
     $form_input = file_get_contents($path."form_input.html");
+
     $form_input = str_replace("{{title}}", $title, $form_input);
     $form_input = str_replace("{{name}}", $name, $form_input);
     $form_input = str_replace("{{description}}", $description, $form_input);
     return $form_input;
-}
+} 
