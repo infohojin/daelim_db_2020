@@ -1,7 +1,7 @@
 <?php
 
-echo "대림대학교";
-
+//echo "대림대학교";
+include "theme.conf.php";
 $dbinfo = include "../dbinfo.php";
 
 // 객체 생성
@@ -13,7 +13,7 @@ $db0 = new mysqli(
 );
 
 if ($db0) {
-    echo "DB 접속 성공"."<br>";
+    //echo "DB 접속 성공"."<br>";
     $query = "SELECT * FROM phpdaelim4.instagram;"; // SQL 쿼리문
     $result = mysqli_query($db0, $query); // DB서버로 전송
     if ($result) {
@@ -21,11 +21,15 @@ if ($db0) {
         
     }
 
-    echo "<a href='new.php'>New</a>";
+    //echo "<a href='new.php'>New</a>";
 
     // 파일을 읽어서, 변수에 넣어 주세요.
-    $layout = file_get_contents("../resource/bootstrap/layout.html");
-    $layout = str_replace("{{datatable}}", viewTable($rows), $layout );
+    $layout = file_get_contents($theme['layout']);
+
+        $contents = file_get_contents($theme['list']);
+        $contents = str_replace("{{datatable}}", viewTable($rows), $contents);
+
+    $layout = str_replace("{{contents}}", $contents, $layout );
     echo $layout;
   
     
@@ -36,7 +40,7 @@ if ($db0) {
 function getRowData($result) {
     // 데이터 갯수
     $cnt = mysqli_num_rows($result);
-    echo "데이터의 갯수는 = ".$cnt."<br>";
+    //echo "데이터의 갯수는 = ".$cnt."<br>";
 
     $rows = []; // 배열을 초기화
     for( $i=0; $i<$cnt; $i++) {
