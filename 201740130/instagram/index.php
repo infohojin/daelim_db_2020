@@ -38,6 +38,9 @@ $db0 = new mysqli(
     } else {
         //echo "DB 접속 실패";
     }
+
+ 
+
     
     function getRowData($result) {
         //데이터 개수 확인
@@ -58,7 +61,12 @@ $db0 = new mysqli(
         $str = "";
         $str = "<table class=\"table table-striped\">";
 
-        $str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>임시</td></tr>";
+        //$str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>임시</td></tr>";
+        $str .= "<tr>";
+        foreach($rows[0] as $field => $value) {
+            $str .= "<td>".$field."</td>";
+        }
+        $str .= "</tr>";
 
         //index 배열의 갯수를 확인해서 반복함
         for($i=0; $i<count($rows); $i++){
@@ -67,9 +75,15 @@ $db0 = new mysqli(
     
             // 각각의 index 배열을 선택
             // 안에 있는 연상배열을 반복.
-            foreach($rows[$i] as $value) {
+            foreach($rows[$i] as $field => $value) {
                 //행 출력
-                $str .= "<td>".$value."</td>";
+                if($field == "title") {
+                    //수정 링크
+                    //get 방식 id값 전달, querystring 전달.
+                    $str .= "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>"."</td>";
+                } else {
+                    $str .= "<td>".$value."</td>";
+                }
             }
             $str .= "</tr>";
         }
