@@ -14,7 +14,7 @@ $db0 = new mysqli(
 );
 
 if ($db0) {
-    echo "DB 접속 성공"."<br>";
+    //echo "DB 접속 성공"."<br>";
     
     //쿼리 스키마.테이블
     $tablename = "instagram";
@@ -24,12 +24,12 @@ if ($db0) {
     $result = mysqli_query($db0, $query); // DB서버로 전송
     if ($result) {
         $rows = getRowData($result); //데이터 읽어오기
-        viewTable($rows); //테이블로 출력하기
+        //viewTable($rows); //테이블로 출력하기
     } else {
-        echo "데이터 읽기 실패";
+        //echo "데이터 읽기 실패";
     }
-    echo "<a href='add.php'>추가</a>";
-    echo "<a href='new.php'>New</a>";
+    //echo "<a href='add.php'>추가</a>";
+    //echo "<a href='new.php'>New</a>";
 
 } else {
     echo "접속 실패";

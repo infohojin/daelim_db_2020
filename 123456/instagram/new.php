@@ -1,6 +1,9 @@
 <?php
 include "theme.conf.php";
 include "../dbinfo.php";
+
+include "desc.php";
+
 $db0 = new mysqli(
     $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
@@ -39,8 +42,10 @@ if ($db0) {
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
+$contents = str_replace("{{id}}", "", $contents);
 
 // 2차원 배열
+/*
 $param = [
     'title' => [
         'title' => "제목",
@@ -62,6 +67,27 @@ $inputs = "";
 foreach($param as $p) {
     $inputs .= form_input($p);
 }
+*/
+
+$inputs = "";
+$tableinfo = desc($db0, $tablename);
+$bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
+foreach($tableinfo as $fieldname) {
+    if($fieldname == "id" || 
+        $fieldname == 'regdate') continue;
+    // html input 테그 생성
+    /*
+    $inputs .= $fieldname;
+    $inputs .= "<input type=text name='".$fieldname."' >";
+    $inputs .= "<br>";
+    */
+    $inputForm = $bootstapInput;
+    $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
+    $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+    $inputs .= $inputForm;
+}
+
+
 
 $contents = str_replace("{{formlist}}", $inputs, $contents); // 항목 삽입
 
