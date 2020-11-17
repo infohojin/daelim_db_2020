@@ -3,9 +3,9 @@
 
 $dbinfo['master'] = [
     'dbhost' => "localhost",
-    'dbuser' => "daelim4",
-    'dbpass' => "123456",
-    'dbschema' => "phpdaelim4"    
+    'dbuser' => "root",
+    'dbpass' => "1234",
+    'dbschema' => "phpdaelim3"    
 ];
 
 return $dbinfo;
