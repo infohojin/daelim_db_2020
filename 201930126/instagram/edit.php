@@ -87,7 +87,6 @@ if ($result) {
     print_r($row);
 }
     
-
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
 $bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
