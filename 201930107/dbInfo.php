@@ -8,4 +8,4 @@ $dbInfo['master'] = [
     'dbPort' => "3306"
 ];
 
-echo "db 접속정보를 설정합니다.<br>";
+// echo "db 접속정보를 설정합니다.<br>";

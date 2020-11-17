@@ -44,8 +44,8 @@ if($db0) {
     }
 
     $title = "대숙이";
-    echo "<a href='add.php'>추가</a>";
-    echo "<a href='new.php?title=`대림대학교`'>new</a>";
+    echo "<a href='add.php'>추가</a>  ";
+    echo "<a href='new.php'>New</a>";
 } else {
     echo "접속 실패";
 }
