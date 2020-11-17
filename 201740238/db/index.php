@@ -13,7 +13,7 @@ $db0 = new mysqli(
 
 if($db0) {
     echo " DB 접속 성공 ";
-    $query = "SELECT * FROM phpdaelim4.members;"; //sql 쿼리 문자
+    $query = "SELECT * FROM phpdaelim3.members;"; //sql 쿼리 문자
     $result = mysqli_query($db0,  $query);
     if ($result) {
             $rows = getRowData($result);
