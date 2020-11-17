@@ -18,7 +18,7 @@ if ($db0) {
 
     $result = mysqli_query($db0, $query);
     if ($result) {
-        $rows=getRowDAta($result);
+        $rows = getRowDAta($result);
         // viewTable($rows);
 
     } else {
@@ -63,13 +63,25 @@ function viewTable($rows){
 
     $str = "<table class=\"table table-striped\">";  // 이스케이프 삽입
 
-    $str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>etc</td><td>picture</td></tr>";
+    //$str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>etc</td><td>picture</td><td>bbb</td></tr>";
+    $str .= "<tr>";
+    foreach($rows[0] as $field => $value) {
+        $str .= "<td>".$field."</td>";
+    }
+    $str .= "</tr>";
 
     for($i=0; $i<count($rows); $i++){
         $str .= "<tr>";
 
-        foreach($rows[$i] as $value){
-            $str .=  "<td>".$value."</td>";
+        foreach($rows[$i] as $field => $value){
+            // 행 출력
+            if ($field == "title") {
+                // 수정링크
+                // GET 방식 id값을 전달, queryString 전달
+                $str .=  "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>/"."</td>";
+            } else {
+                $str .=  "<td>".$value."</td>";
+            }
         }
 
         $str .=  "</tr>";
