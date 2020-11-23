@@ -11,6 +11,8 @@ $db0 = new mysqli(
     $dbInfo['master']['dbPort']
 );
 
+$id = $_GET['id'];
+
 if($db0) {
     // DB접속 성공
     $tablename = "instagram";
@@ -19,14 +21,18 @@ if($db0) {
     if ($post) {
         // $query = "INSERT INTO phpdaelim5.$tablename (title) VALUES ('$title');";
         $date = date("Y-m-d", time());
-        $query = "INSERT $dbName.$tablename SET ";
+        $query = "UPDATE $dbName.$tablename SET ";
+        $cnt = 0;
         foreach ($post as $k => $v) {
-            $query .= "`$k`='$v', ";
+            $query .= "`$k`='$v',";
         }
+        $query = rtrim($query, ",");
+        $query .= " where id=".$_POST['id'];
+        // $query .= "`regdate`='$date'";
         // $query .= "`title`='$title', ";
         // $query .= "`description`='$description'";
-        $query .= "`regdate`='$date'";
         echo $query;
+        // exit;
         $result = mysqli_query($db0, $query); // DB서버로 전송
     
         // 페이지를 이동합니다.
@@ -41,31 +47,19 @@ if($db0) {
 }
 
 $layout = file_get_contents($theme['layout']);
-$contents = file_get_contents($theme['new']);
-$contents = str_replace("{{id}}", "", $contents);
+$contents = file_get_contents($theme['edit']);
 
-// $param = [
-//     'title' => [
-//         'title' => "제목",
-//         'name' => "title",
-//         'description' => "제목 입력"
-//     ],
-//     'description' => [
-//         'title' => "내용",
-//         'name' => "description",
-//         'description' => "내용 입력"
-//     ],
-//     'aaa' => [
-//         'title' => "aaa",
-//         'name' => "aaa",
-//         'description' => "aaa"
-//     ],
-//     'picture' => [
-//         'title' => "이미지",
-//         'name' => "picture",
-//         'description' => "이미지"
-//     ]
-// ];
+// echo $_GET['id'];
+$contents = str_replace("{{id}}", $id, $contents);
+
+$query = "select * from $dbName.$tablename where id=$id";
+$result = mysqli_query($db0, $query); // DB서버로 전송
+if ($result) {
+    $row = mysqli_fetch_object($result);
+    // echo "<pre>";
+    // print_r($row);
+    // echo "</pre>";
+}
 
 $inputs = "";
 $bootstrapInput = file_get_contents("../resource/bootstrap/form_input.html");
@@ -76,20 +70,16 @@ foreach ($tableInfo as $fieldName) {
     if ($fieldName == "id" || $fieldName == "regdate") {
         continue;
     }
-    // $inputs .= "<div class=`form-group`>";
-    // $inputs .= "<label for='$fieldName'>$fieldName</label><input type='text' class='form-control' id='$fieldName' name='$fieldName'>";
-    // $inputs .= "</div>";
+
     $inputForm = $bootstrapInput;
     $inputForm = str_replace("{{name}}", $fieldName, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldName, $inputForm);
     $inputForm = str_replace("{{description}}", $fieldName, $inputForm);
-    $inputForm = str_replace("{{value}}", "", $inputForm);
+    $inputForm = str_replace("{{value}}", $row->$fieldName, $inputForm);
     $inputs .= $inputForm;
 }
 
-// foreach ($param as $v) {
-//     $inputs .= form_input($v);
-// }
+$inputs .= "<input type='hidden' name='id' value='$id'>";
 
 $contents = str_replace("{{formList}}", $inputs, $contents);
 
