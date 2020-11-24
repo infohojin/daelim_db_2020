@@ -20,15 +20,22 @@ if ($db0) {
     if ($title) {
         // print_r($_POST);
         // $query = "INSERT INTO phpdaemin5.".$tablename." (`title`) VALUES ('".$title."');";
-        $query = "INSERT phpdaemin5.".$tablename." SET ";
+        //$query = "INSERT phpdaemin5.".$tablename." SET ";
+        $query = "UPDATE phpdaemin5.".$tablename." SET ";
         foreach($_POST as $key => $value) {
-            $query .= "`".$key."`='".$value."', ";
+            $query .= "`".$key."`='".$value."',";
         }
+
+        $query = rtrim($query, ",");
         // $query .= "`title`='".$title."', ";
         // $query .= "`description`='".$_POST['description']."', ";
-        $query .= "`regdate`='".date("Y-m-d", time())."'";
+        //$query .= "`regdate`='".date("Y-m-d", time())."'";
+
+        $query .= " where id='".$_POST['id']."'";
+        
+        
         echo $query;
-        // exit; // 프로그램 중단
+        //exit; // 프로그램 중단
         $result = mysqli_query($db0, $query); // DB서버로 전송
 
         // 페이지를 이동합니다.
@@ -41,7 +48,7 @@ if ($db0) {
 }
 
 $layout = file_get_contents($theme['layout']);
-$contents = file_get_contents($theme['new']);
+$contents = file_get_contents($theme['edit']);
 
 //echo $_GET['id'];
 $contents = str_replace("{{id}}", $_GET['id'], $contents);
@@ -96,12 +103,14 @@ foreach($tableinfo as $fieldname) {
     $inputForm = $bootstapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
-    
+
     // 값...
     $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
 
     $inputs .= $inputForm;
 }
+
+$inputs .= "<input type=hidden name=id value=".$_GET['id'].">";
 
 
 

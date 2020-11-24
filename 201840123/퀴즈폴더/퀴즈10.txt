@@ -1,0 +1,23 @@
+1. Workbench에서 컬럼을 추가할 때 쿼리문을 입력하지 않아도 추가가 가능하다. (   )
+정답: O
+
+2. DB에 접속할 때 암호 보안을 위해 php 파일에서 암호가 적혀있는 다른 파일을 불러오는 명령문은 무엇인가?
+정답: include
+
+3. 아래의 mysqli 객체 생성문을 PDO 방식으로 변경하면?
+$db = new mysqli (
+    $dbhost = "localhost";
+    $dbuser = "daelim";
+    $dbpass = "123456";
+    $dbschema = "phpdaelim";
+);
+
+정답: try {
+        $db = new PDO (
+            "mysql:host=$dbhost;dbname=$dbschema",
+            $dbuser,
+            $dbpass
+        );
+      } catch(PDOException $e) {
+          echo $e->getMessage();
+      } 
