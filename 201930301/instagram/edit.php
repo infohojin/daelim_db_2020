@@ -18,13 +18,18 @@ if($db0){
     if($title){
         //print_r($_POST);
         //$query = "INSERT INTO phpdaelim5.".$tablename." (`title`) VALUES ('".$title."');";
-        $query = "insert phpdaelim5.".$tablename." SET";
+        //$query = "insert phpdaelim5.".$tablename." SET";
+        $query = "update phpdaelim5.".$tablename." set ";
         foreach($_POST as $key => $value){
             $query .= "`".$key."`='".$value."',";
         }
+
+        $query = rtrim($query, ",");
         // $query .= "`title`='".$title."',";
         // $query .= "`description`='".$_POST['description']."',";
-        $query .= "`regdate`='".date("Y-m-d",time())."'";
+        //$query .= "`regdate`='".date("Y-m-d",time())."'";
+        $query .= " where id='".$_POST['id']."'";
+
         echo $query;
         //exit;
         $result = mysqli_query($db0, $query); // DB서버로 전송
@@ -38,8 +43,10 @@ if($db0){
 }
 
 $layout = file_get_contents($theme['layout']);
-$contents = file_get_contents($theme['new']);
-$contents = str_replace("{{id}}", "", $contents);
+$contents = file_get_contents($theme['edit']);
+
+//echo $_GET['id'];
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
 
 //2차원 배열
 /*
@@ -66,6 +73,15 @@ foreach($param as $p){
     $inputs .= form_input($p);
 }
 */
+$tablename = "instagram";
+$query = "SELECT * FROM phpdaelim5." . $tablename . " where id=".$_GET['id'].";"; // SQL 쿼리문
+echo $query; //쿼리가 실행
+$result = mysqli_query($db0, $query);
+if ($result) {
+    $row = mysqli_fetch_object($result);
+    print_r($row);
+}
+
 
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
@@ -81,8 +97,11 @@ foreach($tableinfo as $fieldname){
     $inputForm = $bootstrapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+    //값
+    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
     $inputs .= $inputForm;
 }
+$inputs .= "<input type=hidden name=id value=".$_GET['id'].">";
 
 $contents = str_replace("{{formlist}}",$inputs, $contents); //항목 삽입
 
