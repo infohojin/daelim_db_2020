@@ -3,6 +3,7 @@
 // echo "대림대학교";
 include "theme.conf.php";
 $dbinfo = include "../dbinfo.php";
+include "desc.php";
 
 // 객체 생성
 $db = new mysqli(
@@ -14,7 +15,7 @@ $db = new mysqli(
 
 if ($db) {
     // echo "DB 접속 성공"."<br>";
-    $query = "SELECT * FROM phpdaelim4.instagram;"; // SQL 쿼리문
+    $query = "SELECT * FROM phpdaelim4.".$tablename.";"; // SQL 쿼리문
     $result = mysqli_query($db, $query); // DB서버로 전송
     if ($result) {
         $rows = getRowData($result);
@@ -49,13 +50,27 @@ function getRowData($result) {
 }
 
 function viewTable($rows) {
+    global $db,$tablename;
+
     $str = "<table class=\"table table-striped\">"; // 변수 초기화
+    $fields = desc($db, $tablename);
+    $str .= "<tr>";
+    foreach($fields as $name) {
+        $str .= "<td>".$name."</td>";
+    }
+    $str .= "</tr>";
+
     // 반복문
     for( $i=0; $i<count($rows); $i++)
     {
         $str .= "<tr>";
-        foreach ($rows[$i] as $value) {
-            $str .= "<td>".$value."</td>";
+
+        foreach ($rows[$i] as $field => $value) {
+            if($field == "title") {
+                $str .= "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>"."</td>";
+            } else {
+                $str .= "<td>".$value."</td>";
+            }
         }
         $str .= "</tr>";
     }
