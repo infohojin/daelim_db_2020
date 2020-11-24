@@ -4,6 +4,7 @@ include "theme.conf.php";
 include "desc.php";
 
 //$tablename = "instagram";
+// post 값이 있으면,,, 뭔가 해줘
 $dbinfo = include "../dbinfo.php";
 // 객체 생성
 $db0 = new mysqli(
