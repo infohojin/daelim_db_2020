@@ -89,6 +89,7 @@ foreach($tableinfo as $fieldname) {
     $inputForm = str_replace("[{name}]",$fieldname,$inputForm);
     $inputForm = str_replace("[{title}]",$fieldname,$inputForm);
     $inputForm = str_replace("[{value}]",$row->$fieldname,$inputForm);
+    $inputForm = str_replace("[{description}]","",$inputForm);
     $inputs .= $inputForm;
 }
 
