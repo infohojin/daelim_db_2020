@@ -65,17 +65,28 @@ function viewTable($rows) {
     $str = "<table class=\"table table-striped\">"; // 이스케이프 삽입
     // index 배열의 갯수를 확인해서 반복함
 
-    $str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>성별</td></tr>";
-
+    //$str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>성별</td></tr>";
+    $str .= "<tr>";
+    foreach($rows[0] as $field => $value) {
+        $str .= "<td>".$field."</td>";
+    }
+    $str .= "</tr>";
+    
     for($i=0;$i<count($rows);$i++) {
         // 열을 출력하겠다.
         $str .= "<tr>";
 
         // 각각의 index 배열을 선택
         // 안에 있는 연상배열을 반복 루프 반복문.
-        foreach($rows[$i] as $value) {
+        foreach($rows[$i] as $field => $value) {
             // 행 출력
-            $str .= "<td>".$value."</td>";
+            if($field == "title") {
+                // 수정링크
+                // GET 방식 id값을 전달, querystring 전달
+                $str .= "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>"."</td>";
+            } else {
+                $str .= "<td>".$value."</td>";
+            }
         }
 
         $str .= "</tr>";
