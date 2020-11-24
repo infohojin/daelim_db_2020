@@ -1,0 +1,14 @@
+1. 배열의 키와 값을 출력하는 방법은?
+-> print_r
+
+2. $result = mysqli_query($db, $query);
+   if($result){
+      $row = mysqli_fetch_object($result);
+      print_r($row);
+      }
+여기서 결과에 여러개의 데이터 row를 가지고 온다. ( O / X )
+-> X 
+1개의 데이터 row만 가져올 수 있다. 데이터가 여러개일 경우에 데이터 갯수만큼 써줘야한다.
+
+3. 보안을 위해 DB정보 파일을 다른 위치에서 가져오는 명령문은?
+-> include
