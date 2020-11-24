@@ -76,6 +76,8 @@ $bootstrapInput=file_get_contents("../resource/bootstrap/form_input.html");
 foreach($tableinfo as $fieldname){
    
     
+
+    
     if($fieldname=="id"||
     $fieldname== 'regdate') continue;
      // html input 태그 
