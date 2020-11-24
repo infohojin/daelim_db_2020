@@ -42,6 +42,7 @@ if ($db0) {
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
+$contents = str_replace("{{id}}", "", $contents);
 
 // 2차원 배열
 /*
@@ -70,13 +71,24 @@ foreach($param as $p) {
 
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
+$bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
 foreach($tableinfo as $fieldname) {
     if($fieldname == "id" || 
         $fieldname == 'regdate') continue;
     // html input 테그 생성
+    /*
     $inputs .= $fieldname;
     $inputs .= "<input type=text name='".$fieldname."' >";
     $inputs .= "<br>";
+    */
+    $inputForm = $bootstapInput;
+    $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
+    $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+
+    $inputForm = str_replace("{{value}}", "", $inputForm);
+    $inputForm = str_replace("{{description}}", "...", $inputForm);
+
+    $inputs .= $inputForm;
 }
 
 
