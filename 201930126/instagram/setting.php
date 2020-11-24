@@ -28,8 +28,6 @@ if (isset($_GET['mode']) && $_GET['mode'] == "new")   {
     $query = "ALTER TABLE `phpdaelim5`.`instargram` 
     ADD COLUMN `".$_POST['fieldname']."` VARCHAR(45) NULL;";
     $result = mysqli_query($db0, $query);
-    
-
 }
 if ($db0) {
     $tablename = "instargram";

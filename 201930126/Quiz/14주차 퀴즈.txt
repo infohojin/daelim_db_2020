@@ -1,0 +1,24 @@
+1)다음의 코드는 무엇을 나타내는가?
+ if ($db0) 
+    {
+    $query = "DELETE FROM `phpdaelim5`.`instargram` WHERE (`id` = '".$_GET['id']."')";
+    $result = mysqli_query($db0,$query);
+    echo "삭제성공 <br>";
+    $url = "/";
+    header("location:".$url);
+    }
+
+답: 디비를 사용하여 특정 아이디에있는 값의 테이블을 삭제하는 쿼리문이있는 코드이다
+
+
+2)다음의 코드는 무엇을 나타내는가?
+ $query = "ALTER TABLE `phpdaelim5`.`instargram` 
+    ADD COLUMN `".$_POST['fieldname']."` VARCHAR(45) NULL;";
+
+답:테이블에 들어가는 컬럼 이름을 바꾸는 쿼리문이다
+
+
+3) 이러한코드를 무엇이라 말하는가?
+$query = "DESC phpdaelim5." . $tablename . ";";
+
+답: 오름차순으로 출력하는 쿼리
