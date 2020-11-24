@@ -5,6 +5,7 @@ include "../dbinfo.php";
 include "desc.php";
 
 echo "테이블 관리 화면 입니다.";
+echo "<a href='/'>목록이동</a>";
 
 $db0 = new mysqli(
     $dbinfo['master']['dbhost'],
@@ -23,11 +24,11 @@ if(isset($_GET['colum'])) {
 if (isset($_GET['mode']) && $_GET['mode'] == "new")   {
     echo "컬럼을 삽입합니다.";
     echo "삽입=".$_POST['fieldname'];
-    /*
+    
     $query = "ALTER TABLE `phpdaemin5`.`instagram` 
-    ADD COLUMN `abcd` VARCHAR(45) NULL AFTER `description`;";
+    ADD COLUMN `".$_POST['fieldname']."` VARCHAR(45) NULL;";
     $result = mysqli_query($db0, $query);
-    */
+    
 
 }
 
