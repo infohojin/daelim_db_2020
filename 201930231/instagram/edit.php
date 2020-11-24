@@ -24,13 +24,15 @@ if(isset($_POST['title'])) {
     
     // print_r($_POST);
     
-    $query = "INSERT `phpdaelim4`.`".$tablename."` SET";
+    // $query = "INSERT `phpdaelim4`.`".$tablename."` SET";
+    $query = "UPDATE `phpdaelim4`.`".$tablename."` SET";
     foreach($_POST as $key => $value) {
         $query .= "`".$key."` = '".$value."',";
     }
     $query = rtrim($query,",");
     // $query .= "`title` = '".$_POST['title']."',";
     // $query .= "`description` = '".$_POST['description']."'";
+    $query .= " WHERE id='".$_POST['id']."'";
 
     // echo $query;
     // exit;
@@ -43,7 +45,7 @@ if(isset($_POST['title'])) {
 $layout = file_get_contents($theme['layout']);
 
 // 알맹이
-$contents = file_get_contents($theme['new']);
+$contents = file_get_contents($theme['edit']);
 /* 
 $formlist = [
     "title"=>[
@@ -73,26 +75,38 @@ $form_str = "";
 $fields = desc($db0, $tablename);
 print_r($fields);
 
+$query = "SELECT * FROM phpdaelim4.".$tablename." WHERE id='".$_GET['id']."'";
+echo $query;
+$result = mysqli_query($db0, $query);
+if($result) {
+    $data = mysqli_fetch_object($result);
+    print_r($data);
+} 
+
 // 1차원 배열
 foreach($fields as $name) {  
     if($name == "id") continue;  // id는 제외
     // value - 값
     // $form_str .=  '<input type="text" name="'.$name.'">';
     // $form_str .= "<br>";
-    $form_str .= form_input($name);
+    $form_str .= form_input($name,$data);
 }
+$form_str .= "<input type=hidden name=id value='".$_GET['id']."'>";
 $contents = str_replace("{{formlist}}", $form_str, $contents);
 
 $layout = str_replace("{{contents}}", $contents, $layout);
 echo $layout;
 
-function form_input($name) {
+function form_input($name, $data) {
     global $path;
     // 함수 안은 지역변수
     // 배열로 받은 데이터를 지역변수로 할당
 
-    $form_str = file_get_contents($path."form_input.html");
+    $form_str = file_get_contents($path."edit_input.html");
     $form_str = str_replace("{{name}}", $name, $form_str);
+
+    $form_str = str_replace("{{value}}", $data->$name, $form_str);
+
     $form_str = str_replace("{{title}}", $name, $form_str);
     $form_str = str_replace("{{description}}", $description, $form_str);
     return $form_str;
