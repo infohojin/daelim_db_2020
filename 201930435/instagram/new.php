@@ -24,6 +24,7 @@ if(isset($_POST['title'])){
     // print_r($_POST);
     
     $query = "INSERT `phpdaelim4`.`".$tablename."` SET ";
+    
     foreach($_POST as $key => $value){
         $query .= "`".$key."` = '".$value."',";
     }

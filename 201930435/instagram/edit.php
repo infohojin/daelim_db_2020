@@ -93,6 +93,8 @@ $layout = file_get_contents($theme['layout']);
     $form_str .= "<input type=hidden name=id value='".$_GET['id']."'>";
     $contents = str_replace("{{formlist}}", $form_str, $contents);
 
+$contents = str_replace("{{id}}", $_GET['id'], $contents); // 삭제 링크를 변경
+
 $layout = str_replace("{{contents}}", $contents, $layout);  
 echo $layout;
 
