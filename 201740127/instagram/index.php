@@ -1,78 +1,85 @@
 <?php
+
+//echo "대림대학교";
 include "theme.conf.php";
-include "../dbinfo.php";  // DB접속 정보
-// DB접속
-$db0 = new mysqli($dbinfo['master']['dbhost'],
-                 $dbinfo['master']['dbuser'],
-                 $dbinfo['master']['dbpass'],
-                 $dbinfo['master']['dbschema'],
-                 $dbinfo['master']['dbport']
+$dbinfo = include "../dbinfo.php";
+include "desc.php";
+
+// 객체 생성
+$db0 = new mysqli(
+    $dbinfo['master']['dbhost'], // mysql 서버주소
+    $dbinfo['master']['dbuser'], // 사용자아이디
+    $dbinfo['master']['dbpass'], // 패스워드
+    $dbinfo['master']['dbschema'] // 스키마
 );
+
 if ($db0) {
-    // echo "DB 접속 성공"."<br />";
-    $tablename = "instagram";
-    $query = "SELECT * FROM phpdaelim4." . $tablename . ";";
-
-    $result = mysqli_query($db0, $query);
+    //echo "DB 접속 성공"."<br>";
+    $query = "SELECT * FROM phpdaelim4.".$tablename.";"; // SQL 쿼리문
+    $result = mysqli_query($db0, $query); // DB서버로 전송
     if ($result) {
-        $rows = getRowDAta($result);
-        // viewTable($rows);
-
-    } else {
-        // echo "데이터 읽기 실패";
-    }
-    $layout = file_get_contents($theme['layout']);
-    $contents = file_get_contents($theme['list']);
-    $contents = str_replace("{{datatable}}", viewTable($rows), $contents);
-    $layout = str_replace("{{contents}}", $contents, $layout);
-    echo $layout;
-    // echo "<a href='add.php'>추가</a>";
-    // echo "<a href='new.php'>New</a>";
-} else {
-    echo "접속 실패";
-}
-function getRowData($result){
-    $cnt = mysqli_num_rows($result);
-    // echo "데이터의 개수는 = ".$cnt."<br />";
-    
-    $rows=[];
-    for($i=0; $i<$cnt; $i++) {
-        $rows [] = mysqli_fetch_object($result);
+        $rows = getRowData($result);
         
     }
-    // echo "<pre>";
-    // print_r($rows);
+
+    //echo "<a href='new.php'>New</a>";
+
+    // 파일을 읽어서, 변수에 넣어 주세요.
+    $layout = file_get_contents($theme['layout']);
+
+        $contents = file_get_contents($theme['list']);
+        $contents = str_replace("{{datatable}}", viewTable($rows), $contents);
+
+    $layout = str_replace("{{contents}}", $contents, $layout );
+    echo $layout;
+  
+    
+} else {
+    echo "접속실패";
+}
+
+function getRowData($result) {
+    // 데이터 갯수
+    $cnt = mysqli_num_rows($result);
+    //echo "데이터의 갯수는 = ".$cnt."<br>";
+
+    $rows = []; // 배열을 초기화
+    for( $i=0; $i<$cnt; $i++) {
+        // 여러개의 데이터가 들어가 있는 2차원 배열
+        $rows []= mysqli_fetch_object($result);
+    }
+    // 2차원 배열 반환
     return $rows;
 }
-// 프로그래밍, html코드를 생성
-function viewTable($rows){
-    // 부트스트랩 클래스 이름 추가
-    $str = "";
 
-    $str = "<table class=\"table table-striped\">";  // 이스케이프 삽입
-    //$str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>etc</td><td>picture</td><td>bbb</td></tr>";
+function viewTable($rows) {
+    global $db0, $tablename;
+
+    // 이스케이프 이용하면 "안에 "문자를 삽입할 수 있어요.
+    $str = "<table class=\"table table-striped\">"; // 변수를 초기화
+
+    //$tablename = "instagram";
+    $fields = desc($db0, $tablename);
     $str .= "<tr>";
-    foreach($rows[0] as $field => $value) {
-        $str .= "<td>".$field."</td>";
+    foreach($fields as $name) {
+        $str .= "<td>".$name."</td>";
     }
     $str .= "</tr>";
 
-    for($i=0; $i<count($rows); $i++){
+    // 반복문
+    for( $i=0; $i<count($rows); $i++)
+    {
         $str .= "<tr>";
-        foreach($rows[$i] as $field => $value){
-            // 행 출력
+        foreach ($rows[$i] as $field => $value) {
             if ($field == "title") {
-                // 수정링크
-                // GET 방식 id값을 전달, queryString 전달
-                $str .=  "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>/"."</td>";
+                $str .= "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>"."</td>";
             } else {
-                $str .=  "<td>".$value."</td>";
+                $str .= "<td>".$value."</td>";
             }
+            
         }
-
-        $str .=  "</tr>";
+        $str .= "</tr>";
     }
-    
-    $str .=  "</table>";
+    $str .= "</table>";
     return $str;
 }

@@ -1,128 +1,75 @@
 <?php
 
-// echo "hello";
 include "theme.conf.php";
-include "../dbinfo.php";
-
 include "desc.php";
 
-$db0 = new mysqli($dbinfo['master']['dbhost'],
-                 $dbinfo['master']['dbuser'],
-                 $dbinfo['master']['dbpass'],
-                 $dbinfo['master']['dbschema'],
-                 $dbinfo['master']['dbport']
+$dbinfo = include "../dbinfo.php";
+
+$db0 = new mysqli(
+    $dbinfo['master']['dbhost'], // mysql 서버주소
+    $dbinfo['master']['dbuser'], // 사용자아이디
+    $dbinfo['master']['dbpass'], // 패스워드
+    $dbinfo['master']['dbschema'] // 스키마
 );
 
-if ($db0) {
-    // DB접속 성공
-    $tablename = "instagram";
-    $title = $_POST['title'];
-    if ($title) {
-        //print_r($_POST);
-        //$query = "INSERT INTO phpdaelim5.".$tablename." (`title`) VALUES ('".$title."');";
-        // $query = "INSERT phpdaelim5.".$tablename." SET ";
-        $query = "UPDATE phpdaelim5.".$tablename." SET ";
-        foreach($_POST as $key => $value) {
-            $query .= "`".$key."`='".$value."',";
-        }
-
-        $query = rtrim($query, ",");
-        // $query .= "`title`='".$title."', ";
-        // $query .= "`description`='".$_POST['description']."', ";
-        // $query .= "`regdate`='".date("Y-m-d", time())."'";
-
-        $query .= " where id='".$_POST['id']."'";
-
-        echo $query;
-        // exit;  // 프로그램 중단
-        $result = mysqli_query($db0, $query);  // DB로 전송
-
-        // 페이지를 이동합니다.
-        $url = "/";
-        header("location:" . $url);
+// POST값
+if (isset($_POST['title'])) {
+    
+    $query = "UPDATE `phpdaelim4`.`".$tablename."` SET ";
+    foreach($_POST as $key => $value) {
+        $query .= "`".$key."` = '".$value."',";
     }
-} else {
-    echo "DB접속실패";
+    $query = rtrim($query,",");
+
+    $query .= " where id='".$_POST['id']."'";
+
+    $result = mysqli_query($db0, $query); // DB서버로 전송
+
+    header("location:/");
 }
+
 
 $layout = file_get_contents($theme['layout']);
-$contents = file_get_contents($theme['edit']);
 
-// echo $_GET['id'];
+    $contents = file_get_contents($theme['edit']);
+    
+    $form_str = "";
+
+    $fields = desc($db0, $tablename);
+    print_r($fields);
+
+    $query = "SELECT * FROM phpdaelim4.".$tablename." where id='".$_GET['id']."';"; 
+    echo $query;
+    $result = mysqli_query($db0, $query);
+    if ($result) {
+        $data = mysqli_fetch_object($result);
+        print_r($data);
+    }
+    
+    foreach($fields as $name) { 
+        if($name == "id") continue; // id는 제외
+        // $value  값 
+        $form_str .= form_input($name, $data);
+    }
+    $form_str .= "<input type=hidden name=id value='".$_GET['id']."'>";
+    $contents = str_replace("{{formlist}}", $form_str, $contents);
+
 $contents = str_replace("{{id}}", $_GET['id'], $contents);
-
-/*
-$param = [
-    'title' => [
-        'title' => "제목",
-        'name' => "title",
-        'description' => "제목을 입력해주세요"
-    ],
-    'description' => [
-        'title' => "내용",
-        'name' => "description",
-        'description' => "내용을 입력해주세요"
-    ],
-    'picture' => [
-        'title' => "사진",
-        'name' => "picture",
-        'description' => "사진을 등록해 주세요"
-    ]
-];
-$inputs = "";
-foreach($param as $p) {
-    $inputs .= form_input($p);
-}
-*/
-
-$tablename = "instagram";
-$query = "SELECT * FROM phpdaelim4." . $tablename . " where id=".$_GET['id'].";";
-echo $query;
-$result = mysqli_query($db0, $query);
-if ($result) {
-    $row = mysqli_fetch_object($result);
-    print_r($row);
-}
-
-$inputs = "";
-$tableinfo = desc($db0, $tablename);
-$bootstrapInput = file_get_contents("../resource/bootstrap/form_input.html");
-foreach($tableinfo as $fieldname) {
-    if ($fieldname == "id" || $fieldname == "regdate") continue;
-    // html input 테그 생성
-    /*
-    $inputs .= $fieldname;
-    $inputs .= "<input type=text name='".$fieldname."' >";
-    $inputs .= "<br>";
-    */
-    $inputForm = $bootstrapInput;
-    $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
-    $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
-    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
-    $inputs .= $inputForm;
-}
-$inputs .= "<input type=hidden name=id value=".$_GET['id'].">";
-
-$contents = str_replace("{{formlist}}", $inputs, $contents);  // 항목 삽입
-
-$layout = str_replace("{{contents}}", $contents, $layout);
-
+$layout = str_replace("{{contents}}", $contents, $layout );
 echo $layout;
 
-function form_input($arg) {
-    global $path;
+function form_input($name, $data)
+{
+    global $path; 
 
-    // $arg 1차원 배열
-    extract($arg); // 베열의 키값으로 지역변수를 자동으로 생성.
-    //$title = $arg['title'];
-    //$name = $arg['name'];
-    //$desctiption = $arg['description'];
 
-    //# 폼의 항목 1개 생성
-    $form_input = file_get_contents($path."form_input.html");
+    $form_str = file_get_contents($path."edit_input.html");
+    $form_str = str_replace("{{name}}",$name,$form_str);
 
-    $form_input = str_replace("{{title}}", $title, $form_input);
-    $form_input = str_replace("{{name}}", $name, $form_input);
-    $form_input = str_replace("{{description}}", $description, $form_input);
-    return $form_input;
-} 
+    $form_str = str_replace("{{value}}",$data->$name,$form_str);
+
+    $form_str = str_replace("{{title}}",$name,$form_str);
+    $form_str = str_replace("{{description}}",$description,$form_str);
+    return $form_str;
+}
+
