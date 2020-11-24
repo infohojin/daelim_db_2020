@@ -1,6 +1,9 @@
 <?php
+
 include "theme.conf.php";
 include "../dbinfo.php";
+include "desc.php";
+
 $db0 = new mysqli(
     $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],           
@@ -37,10 +40,12 @@ if ($db0) {
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
+$contents=str_replace("{{id}}","",$contents);
 
 // 폼의 항목 1개를 생성
 
 // 2차원 배열
+/*
 $param = [
     'title' => [
         'title' => "제목",
@@ -62,6 +67,34 @@ $inputs = "";
 foreach($param as $p) {
      $inputs .= form_input($p);
 }
+*/
+
+
+$inputs="";
+$tableinfo=desc($db0,$tablename);
+$bootstrapInput=file_get_contents("../resource/bootstrap/form_input.html");
+foreach($tableinfo as $fieldname){
+   
+    
+
+    
+    if($fieldname=="id"||
+    $fieldname== 'regdate') continue;
+     // html input 태그 
+     /*
+    $inputs.=  $fieldname;
+    $inputs.=  "<input type=text name='".$fieldname."' >";
+    $inputs.= "<br>";
+    */
+    $inputForm=$bootstrapInput;
+    $inputForm=str_replace("{{name}}",$fieldname,$inputForm);
+    $inputForm=str_replace("{{title}}",$fieldname,$inputForm);
+
+    $inputForm=str_replace("{{value}}","",$inputForm);
+    $inputForm=str_replace("{{description}}","",$inputForm);
+    $inputs.=$inputForm;
+}
+
 
 $contents = str_replace("{{formlist}}",$inputs,$contents); // 항목 삽입
 
@@ -78,6 +111,6 @@ function form_input($arg) {
 
     $form_input = str_replace("{{title}}",$title,$form_input);
     $form_input = str_replace("{{name}}",$name,$form_input);
-    $form_input = str_replace("{{description}}",$description,$form_input);
+    $form_input = str_replace("{{description}}",$desctiption,$form_input);
     return $form_input;
 }

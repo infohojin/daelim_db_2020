@@ -59,16 +59,26 @@ function getRowData($result) {
      $str = ""; //초기화
     $str = "<table class=\"table table-striped\">"; // 이스케이프 삽입
 
-    $str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>번호</td></tr>";
+   // $str .= "<tr><td>번호</td><td>이름</td><td>학번</td><td>성별</td><td>번호</td></tr>";
+    $str .= "<tr>";
+    foreach($rows[0] as $field => $value){
+           $str .="<td>".$field."</td>";
+    };
+    $str .= "</tr>";
     //index 배열의 갯수를 확인해서 반복함
 for($i=0;$i<count($rows);$i++){
    $str .= "<tr>"; //열출력
 
 //각각의 index 배열을 선택
 //안에있는 연상배열을 반복하는 루프 반복문
-    foreach($rows[$i] as $value) {
+    foreach($rows[$i] as $field => $value) {
 
-        $str .= "<td>".$value."</td>";//행출력
+        if($field == "title"){
+            $str .= "<td>"."<a href='edit.php?id=".$rows[$i]->id."'>".$value."</a>"."</td>";
+        }else {
+            $str .= "<td>".$value."</td>";//행출력
+        }
+        
     }
     $str .= "</tr>";
 }

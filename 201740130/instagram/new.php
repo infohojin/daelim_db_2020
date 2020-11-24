@@ -1,6 +1,8 @@
 <?php
 include "theme.conf.php";
 include "../dbinfo.php";
+include "desc.php";
+
 $db0 = new mysqli(
     $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
@@ -35,7 +37,8 @@ $db0 = new mysqli(
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
-
+$contents = str_replace("[{id}]","",$contents);
+/*
 $param = [
     'title' => [
         'title' => "제목",
@@ -56,6 +59,23 @@ $param = [
 $inputs = "";
 foreach($param as $p) {
     $inputs .= form_input($p);
+} */
+
+$inputs = "";
+$tableinfo = desc($db0, $tablename);
+$bootstrapInput = file_get_contents("../resource/bootstrap/form.input.html");
+foreach($tableinfo as $fieldname) {
+    if ($fieldname== "id" || $fieldname == "regdate") continue;
+    /*
+    $inputs .= $fieldname;
+    $inputs .= "<input type=text name='".$fieldname."'>";
+    $inputs .= "<br>";*/
+    $inputForm = $bootstrapInput;
+    $inputForm = str_replace("[{name}]",$fieldname,$inputForm);
+    $inputForm = str_replace("[{title}]",$fieldname,$inputForm);
+    $inputForm = str_replace("[{value}]","",$inputForm);
+    $inputForm = str_replace("[{description}]","",$inputForm);
+    $inputs .= $inputForm;
 }
 
 $contents = str_replace("[{formlist}]",$inputs,$contents); //항목 삽입

@@ -1,4 +1,5 @@
 <?php 
+/*
 echo __LINE__.": 테이블의 컬럼을 알려주세요.<br>";
 
 include "theme.conf.php";
@@ -24,6 +25,7 @@ if ($db0) {
     echo __LINE__.": 접속실패. <br>";
 
 }
+*/
 
 function desc($db, $tablename)
 {

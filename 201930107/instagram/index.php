@@ -14,18 +14,17 @@ $db0 = new mysqli(
 if($db0) {
     // echo "DB 접속 성공.<br>";
     $tablename = "instagram";
-    $query = "select * from phpdaelim5.$tablename order by id desc limit 10;"; // SQL 쿼리문
+    $query = "select * from phpdaelim5.$tablename"; // SQL 쿼리문
     
     // 쿼리 정보 전송,
     // 결과값
     $result = mysqli_query($db0, $query); // DB서버로 전송
-
     
     if($result) {
         $rows = getRowData($result); // 데이터 읽어오기
         
     } else {
-        echo "<script>alert('데이터 읽기 실패');</script>";
+        // echo "<script>alert('데이터 읽기 실패');</script>";
     }
 
     $layout = file_get_contents($theme['layout']);
@@ -59,8 +58,8 @@ function viewTable($rows) {
     $str .= "<table class=\"table table-striped table-hover\">";
 
     $str .= "<tr class=\"thead-dark\">";
-    foreach ($rows[0] as $key => $value) {
-        $str .= "<th scope=\"col\">$key</th>";
+    foreach ($rows[0] as $field => $value) {
+        $str .= "<th scope=\"col\">$field</th>";
     }
     $str .= "</tr>";
 
@@ -70,8 +69,12 @@ function viewTable($rows) {
 
         // 각각의 index배열 선택
         // 안에 있는 연상배열 반복
-        foreach ($rows[$i] as $value) {
-            $str .= "<td>$value</td>";
+        foreach ($rows[$i] as $field => $value) {
+            if ($field == "title") {
+                $str .= "<td><a href='edit.php?id=".$rows[$i]->id."'>$value</a></td>";
+            } else {
+                $str .= "<td>$value</td>";
+            }
         }
         $str .= "</tr>";
     }
