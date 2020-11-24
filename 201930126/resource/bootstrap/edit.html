@@ -1,5 +1,6 @@
   <h1>{{id}} 글쓰기 입니다.</h1>
 <form action="edit.php" method="post">
     {{formlist}}
-    <input type="submit" value="전송">
+    <input type="submit" class="btn btn-primary" value="수정">
+    <a href="delete.php?id={{id}}" class="btn btn-danger">삭제</a>
 </form>

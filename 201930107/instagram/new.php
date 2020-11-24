@@ -82,7 +82,7 @@ foreach ($tableInfo as $fieldName) {
     $inputForm = $bootstrapInput;
     $inputForm = str_replace("{{name}}", $fieldName, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldName, $inputForm);
-    $inputForm = str_replace("{{description}}", $fieldName, $inputForm);
+    $inputForm = str_replace("{{description}}", "", $inputForm);
     $inputForm = str_replace("{{value}}", "", $inputForm);
     $inputs .= $inputForm;
 }

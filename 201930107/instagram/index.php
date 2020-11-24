@@ -14,7 +14,7 @@ $db0 = new mysqli(
 if($db0) {
     // echo "DB 접속 성공.<br>";
     $tablename = "instagram";
-    $query = "select * from phpdaelim5.$tablename order by id desc limit 10;"; // SQL 쿼리문
+    $query = "select * from phpdaelim5.$tablename"; // SQL 쿼리문
     
     // 쿼리 정보 전송,
     // 결과값
@@ -24,7 +24,7 @@ if($db0) {
         $rows = getRowData($result); // 데이터 읽어오기
         
     } else {
-        echo "<script>alert('데이터 읽기 실패');</script>";
+        // echo "<script>alert('데이터 읽기 실패');</script>";
     }
 
     $layout = file_get_contents($theme['layout']);
