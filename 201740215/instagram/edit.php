@@ -16,7 +16,12 @@ if ($db0) {
     // DB접속 성공...
     // 쿼리 스키마.테이블
     $tablename = "instagram";
-    $title = $_POST['title'];
+    if(isset($_POST['title'])) {
+       $title = $_POST['title']; 
+    } else {
+        $title = null;
+    }
+    
     if ($title) {
         // print_r($_POST);
         // $query = "INSERT INTO phpdaemin5.".$tablename." (`title`) VALUES ('".$title."');";
@@ -50,7 +55,7 @@ $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['edit']);
 
 //echo $_GET['id'];
-$contents = str_replace("{{id}}", $GET['id'], $contents);
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
 
 // 2차원 배열
 /*
