@@ -1,9 +1,10 @@
 <?php
 include "theme.conf.php";
 include "../dbinfo.php";
+include "desc.php";
 
 $db0 = new mysqli(
-    $dbinfo['master']['dbJost'],
+    $dbinfo['master']['dbHost'],
     $dbinfo['master']['dbUser'],           
     $dbinfo['master']['dbPwd'],
     $dbinfo['master']['dbSchema']
@@ -18,7 +19,7 @@ if ($db0) {
         print_r($_POST);
         // $query = "INSERT INTO `phpdaelim5`.".$tablename." (`title`) VALUES ('".$title."');";
         $query = "INSERT phpdaelim5.".$tablename." SET ";
-        foreach($_POST as $key => $value){
+        foreach($_POST as $key => $value) {
             $query .= "`".$key."`='".$value."', ";
         }
         // $query .= "`title`='".$title."', ";
@@ -42,30 +43,50 @@ if ($db0) {
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
+$contents = str_replace("{{id}}", "", $contents);
 
-// 2차원 배열
-$param = [
-    'title' => [
-        'title' => "제목",
-        'name' => "title",
-        'description' => "제목을 입력해 주세요"
-    ],
-    'description' => [
-        'title' => "내용",
-        'name' => "description",
-        'description' => "내용을 입력해 주세요"
-    ],
-    'picture' => [
-        'title' => "사진",
-        'name' => "picture",
-        'description' => "사진을 등록해 주세요"
-    ]
-];
+// // 2차원 배열
+// $param = [
+//     'title' => [
+//         'title' => "제목",
+//         'name' => "title",
+//         'description' => "제목을 입력해 주세요"
+//     ],
+//     'description' => [
+//         'title' => "내용",
+//         'name' => "description",
+//         'description' => "내용을 입력해 주세요"
+//     ],
+//     'picture' => [
+//         'title' => "사진",
+//         'name' => "picture",
+//         'description' => "사진을 등록해 주세요"
+//     ]
+// ];
+
+
+// $inputs = "";
+// foreach($param as $p) {
+//     $inputs .= form_input($p);
+// }
 
 
 $inputs = "";
-foreach($param as $p) {
-    $inputs .= form_input($p);
+$tableinfo = desc($db0, $tablename);
+$bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
+foreach($tableinfo as $fieldname) {
+    if($fieldname == "id" || 
+        $fieldname == 'regdate') continue;
+    // html input 테그 생성
+    /*
+    $inputs .= $fieldname;
+    $inputs .= "<input type=text name='".$fieldname."' >";
+    $inputs .= "<br>";
+    */
+    $inputForm = $bootstapInput;
+    $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
+    $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+    $inputs .= $inputForm;
 }
 
 $contents = str_replace("{{formList}}", $inputs, $contents); // 항목 삽입

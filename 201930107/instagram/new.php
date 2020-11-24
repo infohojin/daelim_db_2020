@@ -1,6 +1,7 @@
 <?php
 include "theme.conf.php";
 include "../dbInfo.php"; // db 접속 정보
+include "desc.php";
 
 $db0 = new mysqli(
     $dbInfo['master']['dbHost'], 
@@ -36,40 +37,59 @@ if($db0) {
     }
 
 } else {
-    echo "접속 실패";
+    // echo "접속 실패";
 }
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
+$contents = str_replace("{{id}}", "", $contents);
 
-$param = [
-    'title' => [
-        'title' => "제목",
-        'name' => "title",
-        'description' => "제목 입력"
-    ],
-    'description' => [
-        'title' => "내용",
-        'name' => "description",
-        'description' => "내용 입력"
-    ],
-    'aaa' => [
-        'title' => "aaa",
-        'name' => "aaa",
-        'description' => "aaa"
-    ],
-    'picture' => [
-        'title' => "이미지",
-        'name' => "picture",
-        'description' => "이미지"
-    ]
-];
+// $param = [
+//     'title' => [
+//         'title' => "제목",
+//         'name' => "title",
+//         'description' => "제목 입력"
+//     ],
+//     'description' => [
+//         'title' => "내용",
+//         'name' => "description",
+//         'description' => "내용 입력"
+//     ],
+//     'aaa' => [
+//         'title' => "aaa",
+//         'name' => "aaa",
+//         'description' => "aaa"
+//     ],
+//     'picture' => [
+//         'title' => "이미지",
+//         'name' => "picture",
+//         'description' => "이미지"
+//     ]
+// ];
 
 $inputs = "";
+$bootstrapInput = file_get_contents("../resource/bootstrap/form_input.html");
+$tablename = "instagram";
+$tableInfo = desc($db0, $tablename);
 
-foreach ($param as $v) {
-    $inputs .= form_input($v);
+foreach ($tableInfo as $fieldName) {
+    if ($fieldName == "id" || $fieldName == "regdate") {
+        continue;
+    }
+    // $inputs .= "<div class=`form-group`>";
+    // $inputs .= "<label for='$fieldName'>$fieldName</label><input type='text' class='form-control' id='$fieldName' name='$fieldName'>";
+    // $inputs .= "</div>";
+    $inputForm = $bootstrapInput;
+    $inputForm = str_replace("{{name}}", $fieldName, $inputForm);
+    $inputForm = str_replace("{{title}}", $fieldName, $inputForm);
+    $inputForm = str_replace("{{description}}", $fieldName, $inputForm);
+    $inputForm = str_replace("{{value}}", "", $inputForm);
+    $inputs .= $inputForm;
 }
+
+// foreach ($param as $v) {
+//     $inputs .= form_input($v);
+// }
 
 $contents = str_replace("{{formList}}", $inputs, $contents);
 
