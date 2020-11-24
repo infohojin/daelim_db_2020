@@ -78,7 +78,7 @@ foreach($tableinfo as $fieldname){
     
     if($fieldname=="id"||
     $fieldname== 'regdate') continue;
-     // html input 태그 생성
+     // html input 태그 
      /*
     $inputs.=  $fieldname;
     $inputs.=  "<input type=text name='".$fieldname."' >";
