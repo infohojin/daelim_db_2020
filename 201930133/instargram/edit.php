@@ -1,6 +1,7 @@
 <?php
 include "theme.conf.php";
 include "../dbinfo.php";
+
 include "desc.php";
 
 $db0 = new mysqli(
@@ -102,7 +103,8 @@ foreach($tableinfo as $fieldname) {
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
     // 값
-    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
+    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm); 
+    $inputForm = str_replace("{{description}}", "...", $inputForm);
     $inputs .= $inputForm;
 }
 
