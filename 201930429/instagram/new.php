@@ -80,6 +80,9 @@ foreach($tableinfo as $fieldname) {
     $inputForm = $bootstrapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+
+    $inputForm = str_replace("{{value}}", " ",$fieldname, $inputForm);
+    $inputForm = str_replace("{{description}}","...", $fieldname, $inputForm);
     $inputs .= $inputForm;
 
 }

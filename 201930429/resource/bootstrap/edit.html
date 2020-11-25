@@ -2,5 +2,6 @@
 <!--폼테그를 실행하면 new.php를 실행해 주세요-->
 <form action="edit.php" method="post">
     {{formlist}}
-    <input type="submit" value="전송">
+    <input class="btn btn-primary" type="submit" value="전송">
+    <a class="btn btn-danger" href="delete.php?id={{id}}">삭제</a>
 </form>

@@ -1,6 +1,7 @@
 <?php
 include "theme.conf.php";
 include "../dbinfo.php";
+
 include "desc.php";
 
 $db0 = new mysqli(
