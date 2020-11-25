@@ -1,0 +1,12 @@
+<h1>{{id}}글쓰기 입니다.</h1>
+<form action="edit.php" method="post">
+  {{formlist}}
+  <input class="btn btn-primary" type="submit" value="전송">
+  <a class="btn btn-danger" href="delete.php?id={{id}}">삭제</a>
+</form> 
+
+
+<!--
+  값 전달 -> get 방식 -> ___?변수명=값 && 변수명=값   -> form 을 통해 전달(method 속성 post라고 해줘야 만 전송이 된다.) 
+            post 방식
+-->
