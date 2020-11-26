@@ -12,7 +12,6 @@
 // include vs require
 //include 는 파일이 존재하지 않아요, 경고....계속 실행
 //require 는 만일 파일이 없으면,프로그램은 중단(stop)
-
 require_once "resource.php";
 //require_once "resource.php";
 //되돌아와서 프로그램 계속 실행
