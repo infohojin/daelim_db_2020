@@ -4,6 +4,7 @@ include "../dbinfo.php";
 
 include "desc.php";
 
+
 $db0 = new mysqli(
     $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
@@ -45,7 +46,9 @@ $contents = file_get_contents($theme['new']);
 $contents = str_replace("{{id}}", "", $contents);
 
 // 2차원 배열
+
 /*
+
 $param = [
     'title' => [
         'title' => "제목",
@@ -67,7 +70,10 @@ $inputs = "";
 foreach($param as $p) {
     $inputs .= form_input($p);
 }
+
 */
+
+
 
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
@@ -84,6 +90,9 @@ foreach($tableinfo as $fieldname) {
     $inputForm = $bootstapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+
+    $inputForm = str_replace("{{value}}", "", $inputForm);
+    $inputForm = str_replace("{{description}}", "...", $inputForm);
     $inputs .= $inputForm;
 }
 

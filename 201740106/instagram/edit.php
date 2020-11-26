@@ -20,15 +20,22 @@ if ($db0) {
     if ($title) {
         // print_r($_POST);
         // $query = "INSERT INTO phpdaemin5.".$tablename." (`title`) VALUES ('".$title."');";
-        $query = "INSERT phpdaelim5.".$tablename." SET ";
+        //$query = "INSERT phpdaemin5.".$tablename." SET ";
+        $query = "UPDATE phpdaelim5.".$tablename." SET ";
         foreach($_POST as $key => $value) {
-            $query .= "`".$key."`='".$value."', ";
+            $query .= "`".$key."`='".$value."',";
         }
+
+        $query = rtrim($query, ",");
         // $query .= "`title`='".$title."', ";
         // $query .= "`description`='".$_POST['description']."', ";
-        $query .= "`regdate`='".date("Y-m-d", time())."'";
+        //$query .= "`regdate`='".date("Y-m-d", time())."'";
+
+        $query .= " where id='".$_POST['id']."'";
+        
+        
         echo $query;
-        // exit; // 프로그램 중단
+        //exit; // 프로그램 중단
         $result = mysqli_query($db0, $query); // DB서버로 전송
 
         // 페이지를 이동합니다.
@@ -41,8 +48,10 @@ if ($db0) {
 }
 
 $layout = file_get_contents($theme['layout']);
-$contents = file_get_contents($theme['new']);
-$contents = str_replace("{{id}}", "", $contents);
+$contents = file_get_contents($theme['edit']);
+
+//echo $_GET['id'];
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
 
 // 2차원 배열
 /*
@@ -69,6 +78,16 @@ foreach($param as $p) {
 }
 */
 
+$tablename = "instargram";
+$query = "SELECT * FROM phpdaelim5." . $tablename . " where id=".$_GET['id'].";"; // SQL 쿼리문
+echo $query; //쿼리가 실행
+$result = mysqli_query($db0, $query);
+if ($result) {
+    $row = mysqli_fetch_object($result);
+    print_r($row);
+}
+    
+
 $inputs = "";
 $tableinfo = desc($db0, $tablename);
 $bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
@@ -84,8 +103,14 @@ foreach($tableinfo as $fieldname) {
     $inputForm = $bootstapInput;
     $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
     $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
+
+    // 값...
+    $inputForm = str_replace("{{value}}", $row->$fieldname, $inputForm);
+
     $inputs .= $inputForm;
 }
+
+$inputs .= "<input type=hidden name=id value=".$_GET['id'].">";
 
 
 
@@ -111,5 +136,4 @@ function form_input($arg) {
     $form_input = str_replace("{{name}}", $name, $form_input);
     $form_input = str_replace("{{description}}", $desctiption, $form_input);
     return $form_input;
-
 }
