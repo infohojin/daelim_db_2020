@@ -50,7 +50,8 @@ $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['edit']);
 
 //echo $_GET['id'];
-$contents = str_replace("{{id}}", $GET['id'], $contents);
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
+
 
 // 2차원 배열
 /*
