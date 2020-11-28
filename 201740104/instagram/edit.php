@@ -34,7 +34,7 @@ if ($db0) {
         $query .= " where id='".$_POST['id']."'";
 
         echo $query;
-        // exit;
+      //  exit;
         $result = mysqli_query($db0, $query); // DB서버로 전송
 
         // 페이지를 이동합니다.
@@ -50,7 +50,8 @@ $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['edit']);
 
 //echo $_GET['id'];
-$contents = str_replace("{{id}}", $GET['id'], $contents);
+$contents = str_replace("{{id}}", $_GET['id'], $contents);
+
 
 // 2차원 배열
 /*
@@ -92,7 +93,7 @@ $tableinfo = desc($db0, $tablename);
 $bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
 foreach($tableinfo as $fieldname) {
     if($fieldname == "id" || 
-        $fieldname == 'regdate') continue;
+        $fieldname == 'regdata') continue;
     // html input 테그 생성
     /*
     $inputs .= $fieldname;
