@@ -14,16 +14,18 @@ $dbschema = "phpdaelim5";
 $dbport = "3306";   // 포트를 달리 설정했다고 한다면 넣어줘야돼요.
 */
 
-include "dbinfo.php";
+include "../dbinfo.php";
 
 //$db = new mysqli($host, $dbuser, $dbpass, $dbschema);
-$db0 = new mysqli($dbinfo['master']['dbhost'],
+$db0 = new mysqli(
+    $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
     $dbinfo['master']['dbpass'],
-    $dbinfo['master']['dbschema']
+    $dbinfo['master']['dbschema'],
+    $dbinfo['master']['dbport']
 );
 if($db0) {
-    echo "DB 접속 성공"."<br>";
+    // echo "DB 접속 성공"."<br>";
 
     // 쿼리 스키마.테이블
     $tablename = "instagram";
@@ -37,14 +39,14 @@ if($db0) {
 
         $rows = getRowData($result);    // 데이터 읽어오기
 
-        viewTable($rows);   // 읽어온 데이터 테이블 출력하기
+        //viewTable($rows);   // 읽어온 데이터 테이블 출력하기
         
     }
     else {
-        echo "데이터 읽기 실패";
+        // echo "데이터 읽기 실패";
     }
-    echo "<a href='add.php'>추가</a>";
-    echo "<a href='new.php'>new</a>";
+    // echo "<a href='add.php'>추가</a>";
+    // echo "<a href='new.php'>new</a>";
 
 } else {
     echo "DB 접속 실패";
@@ -62,7 +64,7 @@ function getRowData($result) {
         $rows [] = mysqli_fetch_object($result);     // 대괄호 넣으면 값을 하나하나 스택처럼 쌓을 수 있음
     }
     echo "<pre>";
-    print_r($rows);
+    // print_r($rows);
     return $rows;
 }
 
