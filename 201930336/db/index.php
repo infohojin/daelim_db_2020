@@ -13,13 +13,15 @@ $dbschema = "phpdaelim5";
 $dbport = "3306";   // 포트를 달리 설정했다고 한다면 넣어줘야돼요.
 */
 
-include "dbinfo.php";
+include "../dbinfo.php";
 
 //$db = new mysqli($host, $dbuser, $dbpass, $dbschema);
-$db0 = new mysqli($dbinfo['master']['dbhost'],
+$db0 = new mysqli(
+    $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
     $dbinfo['master']['dbpass'],
-    $dbinfo['master']['dbschema']
+    $dbinfo['master']['dbschema'],
+    $dbinfo['master']['dbport']
 );
 if($db0) {
     echo "DB 접속 성공"."<br>";

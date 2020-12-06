@@ -1,20 +1,24 @@
 <?php
+/*
 echo "새 글을 작성합니다.";
 echo "작성한 새 글 = ".$_POST['title'];
 
 $form = file_get_contents("../resource/new.html");
 echo $form;
+*/
 
 include "dbinfo.php";
-$db0 = new mysqli($dbinfo['master']['dbhost'],
+$db0 = new mysqli(
+    $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
     $dbinfo['master']['dbpass'],
-    $dbinfo['master']['dbschema']
+    $dbinfo['master']['dbschema'],
+    $dbinfo['master']['dbport']
 );
 if($db0) {
     // 접속 성공
+    $tablename = "instagram";
     $title = $_POST['title'];
-    $tablename = "`instagram`";
     if ($title) {
         //print_r($_POST);
         //$query = "INSERT INTO `phpdaelim5`.".$tablename." (`title`) VALUES ('".$title."')";

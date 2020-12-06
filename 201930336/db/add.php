@@ -14,20 +14,23 @@ $dbschema = "phpdaelim5";
 $dbport = "3306";   // 포트를 달리 설정했다고 한다면 넣어줘야돼요.
 */
 
-include "dbinfo.php";
+include "../dbinfo.php";
 
 //$db = new mysqli($host, $dbuser, $dbpass, $dbschema);
-$db0 = new mysqli($dbinfo['master']['dbhost'],
+$db0 = new mysqli(
+    $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],
     $dbinfo['master']['dbpass'],
-    $dbinfo['master']['dbschema']
+    $dbinfo['master']['dbschema'],
+    $dbinfo['master']['dbport']
 );
 if($db0) {
     echo "DB 접속 성공"."<br>";
     
-    /*
+    
     // 쿼리 스키마.테이블
     $tablename = "instagram";
+    /*
     $query = "SELECT * FROM phpdaelim5.".$tablename.";";   // SQL 쿼리문
 
     // 쿼리 정보를 전송해서 결과값을 받는 것
@@ -47,7 +50,7 @@ if($db0) {
     */
 
     $title = $_GET['title'];
-    $tablename = "`instagram`";
+    // $tablename = "`instagram`";
     $query = "INSERT INTO `phpdaelim5`.".$tablename." (`title`) VALUES ('".$title."')";
     echo $query;
     $result = mysqli_query($db0, $query);   // DB로 전송
@@ -60,6 +63,7 @@ if($db0) {
     echo "DB 접속 실패";
 }
 
+/*
 function getRowData($result) {
 
     // 받아온 데이터 갯수 값을 확인
@@ -99,3 +103,4 @@ function viewTable($rows) {
 
     echo "</table>";
 }
+*/
