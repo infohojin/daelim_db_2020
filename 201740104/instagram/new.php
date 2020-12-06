@@ -1,8 +1,9 @@
 <?php
+
 include "theme.conf.php";
 include "../dbinfo.php";
-
 include "desc.php";
+
 $db0 = new mysqli(
     $dbinfo['master']['dbhost'],
     $dbinfo['master']['dbuser'],           
@@ -23,7 +24,7 @@ if ($db0) {
     }
     //$query.="`description`='".$_POST['description']."',";
    // $query.="`title`='".$title."',";
-    $query.="`regdate`='".date("Y-m-d",time())."'";
+    $query.="`regdata`='".date("Y-m-d",time())."'";
        echo $query;
     
           $result = mysqli_query($db0, $query); // DB서버로 전송
@@ -39,7 +40,7 @@ if ($db0) {
 
 $layout = file_get_contents($theme['layout']);
 $contents = file_get_contents($theme['new']);
-$contents = str_replace("{{id}}", $_GET['id'], $contents);
+$contents=str_replace("{{id}}","",$contents);
 
 // 폼의 항목 1개를 생성
 
@@ -68,23 +69,30 @@ foreach($param as $p) {
 }
 */
 
-$inputs = "";
-$tableinfo = desc($db0, $tablename);
-$bootstapInput = file_get_contents("../resource/bootstrap/form_input.html");
-foreach($tableinfo as $fieldname) {
-    if($fieldname == "id" ||
-    $fieldname == 'regdate') continue;
-    // html input 테그 생성
-    /*
-    $inputs .= $fieldname;
-    $inputs .= "<input type=text name='".$fieldname."' >";
-    $inputs .= "<br>";
+
+$inputs="";
+$tableinfo=desc($db0,$tablename);
+$bootstrapInput=file_get_contents("../resource/bootstrap/form_input.html");
+foreach($tableinfo as $fieldname){
+   
+    
+    if($fieldname=="id"||
+    $fieldname== 'regdata') continue;
+     // html input 태그 생성
+     /*
+    $inputs.=  $fieldname;
+    $inputs.=  "<input type=text name='".$fieldname."' >";
+    $inputs.= "<br>";
     */
-    $inputForm = $bootstapInput;
-    $inputForm = str_replace("{{name}}", $fieldname, $inputForm);
-    $inputForm = str_replace("{{title}}", $fieldname, $inputForm);
-    $inputs .= $inputForm;
+    $inputForm=$bootstrapInput;
+    $inputForm=str_replace("{{name}}",$fieldname,$inputForm);
+    $inputForm=str_replace("{{title}}",$fieldname,$inputForm);
+
+    $inputForm=str_replace("{{value}}","",$inputForm);
+    $inputForm=str_replace("{{description}}","",$inputForm);
+    $inputs.=$inputForm;
 }
+
 
 $contents = str_replace("{{formlist}}",$inputs,$contents); // 항목 삽입
 
