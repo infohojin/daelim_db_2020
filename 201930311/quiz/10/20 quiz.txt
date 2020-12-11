@@ -1,0 +1,17 @@
+1. 클래스를 선언하는 법
+class 클래스이름{} 
+
+2.클래스의 선언 단계를 올바르게 짝지으시오
+a. 선언 b. 생성 c. 호출
+
+답 : a-b-c
+
+3. class message
+{
+    function hello($name){
+        echo $name;
+    }
+}
+이 클래스를 생성 후 대림대학교 가 나오게 호출 해 보시오
+
+답 : $obj = new message; $obj ->hello("대림대학교");

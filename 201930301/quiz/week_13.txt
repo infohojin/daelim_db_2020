@@ -1,0 +1,16 @@
+1. 쿼리문에서 문자열을 제거하려고 할 때 사용하는 함수는?
+① rtrim()  ② ctcrim()  ③ dtdrim();
+정답: 1. rtrim()
+해설: rtrim([대상 문자열],[제거할 문자열])을 사용해 문자열을 제거한다.
+
+2. 'title' 값을 url에 아무 흔적 없이 전달하려고 한다. 
+( )에 들어갈 문법은?
+$title = (       )['title'];
+정답: $_POST
+해설: POST방식으로 전송된 값을 $_POST로 받는다.
+
+3. ( ) 안에 들어갈 전체 파일을 문자열로 읽는 함수는?
+$str = (             )('test.txt');
+echo $str;
+정답: file_get_contents
+해설: file_get_contents()을 사용해 'test.txt'파일을 문자열로 읽어들인다.
